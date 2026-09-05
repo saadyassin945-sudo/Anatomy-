@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>Anatomy QBank</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg1:#0a0f1f;--bg2:#0a0f1f;--bg3:#0a0f1f;--primary:#4fc3f7;--primary-dark:#0288d1;--accent:#ffd54f;--danger:#ef5350;--success:#66bb6a;--text:#e2e8f0;--muted:#a0aec0;--radius:16px;--shadow:0 10px 30px rgba(0,0,0,0.4);--glow:0 0 25px rgba(79,195,247,0.12);--max-width:600px;--bg-card:rgba(255,255,255,0.06);--border-card:rgba(255,255,255,0.06)}
+body.light{--bg1:#fff;--bg2:#fff;--bg3:#fff;--bg-card:#fff;--border-card:#ccc;--text:#000;--muted:#555;--primary:#1565c0;--primary-dark:#0d47a1;--accent:#f9a825;--danger:#c62828;--success:#2e7d32;--shadow:0 2px 8px rgba(0,0,0,0.08);--glow:none;background:#fff!important;background-image:none!important;animation:none!important}
+body{font-family:"Tahoma","Segoe UI","Cairo",sans-serif;background:var(--bg1);min-height:100vh;color:var(--text);display:flex;flex-direction:column;align-items:center;padding:12px 10px;transition:background .4s,color .3s}
+.app{width:100%;max-width:var(--max-width);position:relative;z-index:1}
+.top-header{text-align:center;padding:8px 0 4px}
+.top-header h1{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--primary-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+body.light .top-header h1{background:none;-webkit-background-clip:unset;-webkit-text-fill-color:unset;color:#000;text-shadow:none}
+.top-header .sub{font-size:.9rem;color:var(--primary);font-weight:600}
+.top-header .creator{font-size:.7rem;color:var(--muted);margin-top:4px}
+.top-header .creator .name{color:var(--text);font-weight:700}
+body.light .top-header .creator .name{color:#000}
+.theme-toggle-wrap{display:flex;justify-content:flex-end;margin-bottom:6px}
+.theme-toggle{display:flex;background:var(--bg-card);border:1px solid var(--border-card);border-radius:30px;padding:3px;gap:2px}
+.theme-toggle button{background:transparent;border:none;padding:4px 14px;border-radius:30px;font-size:.8rem;color:var(--muted);cursor:pointer;transition:.3s}
+.theme-toggle button.active{background:var(--primary);color:#fff;font-weight:700}
+body.light .theme-toggle button.active{background:#1565c0;color:#fff}
+.card{background:var(--bg-card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border-card);border-radius:var(--radius);box-shadow:var(--shadow),var(--glow);padding:16px 14px;margin-bottom:14px;transition:transform .2s,background .3s,border .3s;color:var(--text)}
+body.light .card{background:#fff;border:1px solid #ccc;backdrop-filter:none}
+.card-title{margin:0 0 12px;font-size:1rem;border-inline-start:3px solid var(--primary);padding-inline-start:10px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.card-title i{color:var(--accent);margin-left:6px}
+.card-title .select-all-btn{background:rgba(255,255,255,0.06);border:1px solid var(--border-card);color:var(--muted);border-radius:12px;padding:2px 12px;font-size:.7rem;cursor:pointer;transition:.2s;font-weight:600}
+body.light .card-title .select-all-btn{background:#f0f0f0;border-color:#ccc;color:#333}
+.card-title .select-all-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.action-icons{display:flex;justify-content:space-around;gap:6px;flex-wrap:wrap}
+.action-icon{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:6px 14px;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-size:.7rem;font-weight:600;min-width:56px}
+.action-icon .icon{font-size:1.5rem}
+.action-icon .label{font-size:.55rem}
+.action-icon.active{border-color:var(--primary);background:rgba(79,195,247,0.08)}
+body.light .action-icon.active{border-color:#1565c0;background:#e3f2fd}
+.sub-options{display:none;padding:8px 10px;margin-top:6px;background:rgba(0,0,0,0.15);border-radius:12px;border:1px solid var(--border-card);flex-wrap:wrap;gap:6px;justify-content:center}
+body.light .sub-options{background:#f5f5f5;border-color:#ccc}
+.sub-options.show{display:flex}
+.sub-options .action-btn{border:1px solid var(--border-card);background:rgba(255,255,255,0.03);border-radius:12px;padding:5px 16px;font-size:.75rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+body.light .sub-options .action-btn{background:#fff;border-color:#ccc;color:#333}
+.sub-options .action-btn.active{border-color:var(--primary);background:rgba(79,195,247,0.12);color:var(--text)}
+body.light .sub-options .action-btn.active{border-color:#1565c0;background:#bbdefb;color:#000}
+.section-list{display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto}
+.section-item{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border-card);border-radius:10px;padding:8px 12px;cursor:pointer;transition:all .15s;font-size:.85rem;color:var(--text)}
+body.light .section-item{border-color:#ccc}
+.section-item.active{border-color:var(--primary);background:rgba(79,195,247,0.08)}
+body.light .section-item.active{border-color:#1565c0;background:#e3f2fd}
+.section-item .cnt{background:rgba(255,255,255,0.06);border-radius:30px;padding:0 10px;font-size:.7rem;color:var(--muted);font-weight:700;min-width:30px;text-align:center}
+body.light .section-item .cnt{background:#ddd;color:#333}
+.section-item .info-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;padding:0 4px}
+.section-item .info-btn:hover{color:var(--primary)}
+#section-explanation{margin-top:12px;padding:16px;background:rgba(0,0,0,0.15);border-radius:var(--radius);border:1px solid var(--border-card);display:none}
+body.light #section-explanation{background:#f5f5f5;border-color:#ccc}
+#section-explanation.show{display:block}
+.explain-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.explain-controls{display:flex;gap:6px;align-items:center}
+.explain-controls .lang-btn{background:rgba(255,255,255,0.06);border:1px solid var(--border-card);color:var(--muted);padding:4px 10px;border-radius:20px;font-size:.7rem;cursor:pointer;font-weight:600}
+body.light .explain-controls .lang-btn{background:#fff;border-color:#ccc;color:#333}
+.explain-controls .lang-btn.active{border-color:var(--primary);background:rgba(79,195,247,0.12);color:var(--text)}
+body.light .explain-controls .lang-btn.active{border-color:#1565c0;background:#bbdefb;color:#000}
+.explain-controls .close-explain{background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer}
+.explain-controls .close-explain:hover{color:var(--danger)}
+#explain-text{font-size:.9rem;line-height:2;color:var(--text);background:rgba(0,0,0,0.1);padding:12px;border-radius:10px;min-height:60px;white-space:pre-wrap}
+body.light #explain-text{background:#fff;color:#000;border:1px solid #ccc}
+.big-btn{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(79,195,247,0.25);transition:all .15s;position:relative;overflow:hidden}
+body.light .big-btn{background:#1565c0;color:#fff;box-shadow:0 2px 8px rgba(21,101,192,0.3)}
+.big-btn.secondary{background:linear-gradient(135deg,#4a5568,#2d3748)}
+body.light .big-btn.secondary{background:#757575}
+.big-btn.warn{background:linear-gradient(135deg,var(--accent),#f57f17)}
+body.light .big-btn.warn{background:#f9a825;color:#000}
+.big-btn:disabled{opacity:.5;cursor:not-allowed}
+.stats-row{display:flex;justify-content:space-around;gap:8px;text-align:center;margin:6px 0}
+.stats-row .stat .num{font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,var(--primary),#81d4fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+body.light .stats-row .stat .num{background:none;-webkit-background-clip:unset;-webkit-text-fill-color:unset;color:#000}
+.stats-row .stat .lbl{font-size:.7rem;color:var(--muted)}
+.progress-stats{display:flex;align-items:center;gap:16px}
+.progress-ring{position:relative;width:70px;height:70px;flex-shrink:0}
+.progress-ring svg{transform:rotate(-90deg);width:70px;height:70px}
+.progress-ring .bg{fill:none;stroke:var(--border-card);stroke-width:6}
+body.light .progress-ring .bg{stroke:#ccc}
+.progress-ring .fg{fill:none;stroke:var(--primary);stroke-width:6;stroke-linecap:round;stroke-dasharray:176;stroke-dashoffset:176;transition:stroke-dashoffset .6s}
+body.light .progress-ring .fg{stroke:#1565c0}
+.progress-ring .center-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:var(--text)}
+.weak-link{margin-top:10px;font-size:.75rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:6px}
+.weak-link i{color:var(--accent)}
+.action-row-bottom{display:flex;gap:8px;margin-top:10px}
+.action-row-bottom .big-btn{flex:1;font-size:.75rem;padding:8px;margin-top:0}
+#screen-quiz,#screen-results{display:none}
+#screen-quiz.active,#screen-results.active{display:block}
+.quiz-meta{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--muted);margin-bottom:8px}
+#timer-badge{font-weight:600;font-size:.8rem;background:rgba(255,255,255,0.05);padding:2px 12px;border-radius:30px;border:1px solid var(--border-card)}
+body.light #timer-badge{background:#f0f0f0;border-color:#ccc}
+#timer-badge.warn{background:rgba(255,213,79,0.15);border-color:var(--accent);color:var(--accent)}
+#timer-badge.danger{background:rgba(239,83,80,0.2);border-color:var(--danger);color:var(--danger);animation:pulse .7s infinite alternate}
+@keyframes pulse{0%{opacity:1}100%{opacity:.5}}
+.progress-wrap{background:rgba(255,255,255,0.06);border-radius:30px;height:4px;overflow:hidden;margin-bottom:12px}
+body.light .progress-wrap{background:#ddd}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%;transition:width .3s}
+body.light .progress-bar{background:linear-gradient(90deg,#1565c0,#f9a825)}
+.q-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px}
+.q-tag{display:inline-block;background:rgba(79,195,247,0.10);color:var(--primary);font-size:.65rem;font-weight:700;padding:2px 12px;border-radius:30px;border:1px solid rgba(79,195,247,0.06);margin-bottom:8px}
+body.light .q-tag{background:#e3f2fd;color:#1565c0;border-color:#bbdefb}
+.q-en{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.6;direction:ltr;text-align:left;word-wrap:break-word}
+.q-ar{font-size:.9rem;color:var(--muted);margin-bottom:14px;line-height:1.7;direction:rtl;text-align:right;word-wrap:break-word}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:center;gap:8px;border:1px solid var(--border-card);border-radius:12px;padding:10px 14px;cursor:pointer;transition:all .15s;background:rgba(255,255,255,0.02);direction:ltr}
+body.light .option{background:#fff;border-color:#ccc}
+.option .opt-en{font-weight:600;color:var(--text);font-size:.9rem;flex:1;direction:ltr;text-align:left}
+.option .opt-ar{color:var(--muted);font-size:.8rem;direction:rtl;text-align:right;flex:1}
+.option .mark{font-size:1.1rem;width:24px;text-align:center;flex-shrink:0}
+.option.selected{border-color:var(--primary);background:rgba(79,195,247,0.06)}
+body.light .option.selected{border-color:#1565c0;background:#e3f2fd}
+.option.correct{border-color:var(--success);background:rgba(102,187,106,0.08)}
+body.light .option.correct{border-color:#2e7d32;background:#e8f5e9}
+.option.wrong{border-color:var(--danger);background:rgba(239,83,80,0.08)}
+body.light .option.wrong{border-color:#c62828;background:#ffebee}
+.option.disabled{cursor:default;opacity:.8}
+.feedback-box{margin-top:12px;padding:12px;border-radius:12px;font-size:.85rem;line-height:1.6}
+.feedback-box.correct{background:rgba(102,187,106,0.08);border:1px solid rgba(102,187,106,0.15);color:#a7f3d0}
+body.light .feedback-box.correct{background:#e8f5e9;border-color:#2e7d32;color:#000}
+.feedback-box.wrong{background:rgba(239,83,80,0.08);border:1px solid rgba(239,83,80,0.15);color:#fecaca}
+body.light .feedback-box.wrong{background:#ffebee;border-color:#c62828;color:#000}
+.feedback-box .fb-title{font-weight:700;margin-bottom:4px}
+.nav-row{display:flex;gap:8px;margin-top:12px}
+.nav-row .big-btn{flex:1;margin-top:0;font-size:.85rem;padding:10px}
+.score-circle{width:120px;height:120px;border-radius:50%;margin:8px auto 14px;display:flex;align-items:center;justify-content:center;flex-direction:column;background:conic-gradient(var(--primary) calc(var(--pct)*1%),rgba(255,255,255,0.04) 0);position:relative}
+body.light .score-circle{background:conic-gradient(#1565c0 calc(var(--pct)*1%),#e0e0e0 0)}
+.score-circle::before{content:"";position:absolute;width:90px;height:90px;background:var(--bg1);backdrop-filter:blur(4px);border-radius:50%;opacity:.85}
+body.light .score-circle::before{background:#fff;opacity:.9}
+.score-circle .pct{position:relative;font-size:1.8rem;font-weight:900;color:#fff}
+body.light .score-circle .pct{color:#000}
+.score-circle .lbl{position:relative;font-size:.7rem;color:var(--muted)}
+.mistake-item{border:1px solid var(--border-card);border-radius:12px;padding:12px;margin-bottom:10px;background:rgba(255,255,255,0.02)}
+body.light .mistake-item{background:#fff;border-color:#ccc}
+.mistake-item .m-q{font-weight:700;margin-bottom:2px}
+.mistake-item .m-you{color:var(--danger);font-size:.8rem}
+body.light .mistake-item .m-you{color:#c62828}
+.mistake-item .m-correct{color:var(--success);font-size:.8rem}
+body.light .mistake-item .m-correct{color:#2e7d32}
+.mistake-toggle{background:none;border:1px solid var(--border-card);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--text);font-size:.75rem;margin-top:6px}
+body.light .mistake-toggle{border-color:#ccc;color:#000}
+.mistake-detail{margin-top:10px;border:1px solid var(--border-card);border-radius:10px;padding:12px;background:rgba(255,255,255,0.03)}
+body.light .mistake-detail{background:#f9f9f9;border-color:#ccc}
+.mistake-detail .opt-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border-card)}
+body.light .mistake-detail .opt-row{border-color:#ddd}
+.mistake-detail .opt-row:last-child{border-bottom:none}
+.mistake-detail .opt-label{flex:1}
+.mistake-detail .opt-status{font-size:1rem;margin-right:8px}
+.hidden{display:none!important}
+footer{text-align:center;color:var(--muted);font-size:.7rem;margin-top:20px;margin-bottom:8px;opacity:.6}
+footer .name{color:var(--primary);font-weight:700}
+body.light footer .name{color:#1565c0}
+.word-en{display:inline-block;cursor:default;transition:background .15s,transform .1s;padding:1px 2px;border-radius:4px;direction:ltr}
+.word-en:active{background:rgba(79,195,247,0.15);transform:scale(.97)}
+body.light .word-en:active{background:#bbdefb}
+.word-en.speaking{background:rgba(255,213,79,0.25);box-shadow:0 0 10px rgba(255,213,79,0.2)}
+body.light .word-en.speaking{background:#fff9c4}
+.speech-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);color:#fff;padding:6px 18px;border-radius:30px;font-size:.8rem;pointer-events:none;opacity:0;transition:opacity .3s;z-index:999;border:1px solid rgba(255,255,255,0.1)}
+body.light .speech-hint{background:#f0f0f0;color:#000;border-color:#ccc}
+.speech-hint.show{opacity:1}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.25);transform:scale(0);animation:rippleAnim .5s linear;pointer-events:none}
+body.light .ripple{background:rgba(0,0,0,0.1)}
+@keyframes rippleAnim{to{transform:scale(3);opacity:0}}
+@media(max-width:480px){body{padding:8px 6px}.app{max-width:100%}.top-header h1{font-size:1.5rem}.card{padding:12px 10px}.action-icon{padding:4px 8px;min-width:44px}.action-icon .icon{font-size:1.2rem}.q-en{font-size:.9rem}.q-ar{font-size:.8rem}.option{padding:8px 10px}.big-btn{font-size:.85rem;padding:10px}.score-circle{width:100px;height:100px}.score-circle::before{width:75px;height:75px}.score-circle .pct{font-size:1.5rem}.progress-ring{width:56px;height:56px}.progress-ring svg{width:56px;height:56px}}
+.tf-badge{display:inline-block;font-size:.6rem;font-weight:700;padding:1px 8px;border-radius:12px;margin-right:6px;background:rgba(79,195,247,0.15);color:var(--primary)}
+body.light .tf-badge{background:#e3f2fd;color:#1565c0}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top-header"><h1>  استعِن باللَّهِ ولا تعجِزْ ♥️ </h1><div class="sub">Anatomy QBank </div><div class="creator"><i class="fas fa-user-graduate"></i> Created by <span class="name">MR. YASSIN THARWAT</span></div></div>
+<div class="theme-toggle-wrap"><div class="theme-toggle" id="themeToggle"><button class="active" data-theme="dark" onclick="setTheme('dark')"><i class="fas fa-moon"></i></button><button data-theme="light" onclick="setTheme('light')"><i class="fas fa-sun"></i></button></div></div>
+
+<div id="main-screen">
+<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> الإجراءات</div>
+<div class="action-icons">
+<div class="action-icon active" data-target="modeOptions" onclick="toggleOptions('modeOptions')"><span class="icon">🎯</span><span class="label">المذاكرة</span></div>
+<div class="action-icon" data-target="orderOptions" onclick="toggleOptions('orderOptions')"><span class="icon">🔀</span><span class="label">الترتيب</span></div>
+<div class="action-icon" data-target="langOptions" onclick="toggleOptions('langOptions')"><span class="icon">🌐</span><span class="label">اللغة</span></div>
+<div class="action-icon" data-target="timerOptions" onclick="toggleOptions('timerOptions')"><span class="icon">⏱️</span><span class="label">المؤقت</span></div>
+</div>
+<div id="modeOptions" class="sub-options show"><button class="action-btn active" data-mode="practice" onclick="selectMode('practice')">تدريب</button><button class="action-btn" data-mode="test" onclick="selectMode('test')">اختبار</button></div>
+<div id="orderOptions" class="sub-options"><button class="action-btn active" data-order="device" onclick="selectOrder('device')">بالترتيب</button><button class="action-btn" data-order="random" onclick="selectOrder('random')">عشوائي</button></div>
+<div id="langOptions" class="sub-options"><button class="action-btn active" data-translate="yes" onclick="selectTranslate('yes')">ترجمة</button><button class="action-btn" data-translate="no" onclick="selectTranslate('no')">EN</button></div>
+<div id="timerOptions" class="sub-options"><button class="action-btn active" data-timer="0" onclick="selectTimer(0)">تثبيت</button><button class="action-btn" data-timer="5" onclick="selectTimer(5)">5s</button><button class="action-btn" data-timer="10" onclick="selectTimer(10)">10s</button></div>
+</div>
+
+<div class="card"><div class="card-title"><span><i class="fas fa-layer-group"></i> الأجزاء المختارة</span><button class="select-all-btn" id="selectAllBtn" onclick="toggleAllSections()">تحديد الكل</button></div><div id="section-list" class="section-list"></div>
+<div id="section-explanation"><div class="explain-header"><h3 id="explain-title"></h3><div class="explain-controls"><button class="lang-btn active" data-lang="ar" onclick="setExplainLang('ar')">🇪🇬 عربي</button><button class="lang-btn" data-lang="en" onclick="setExplainLang('en')">🇬🇧 English</button><button class="close-explain" onclick="closeExplanation()"><i class="fas fa-times"></i></button></div></div><div id="explain-text" class="ar"></div></div></div>
+
+<button class="big-btn" onclick="startQuiz()"><i class="fas fa-play"></i> أبداً المذاكرة</button>
+
+<div class="card" id="progressCard"><div class="card-title"><i class="fas fa-chart-line"></i> تقدمك</div>
+<div class="progress-stats"><div class="progress-ring"><svg viewBox="0 0 70 70"><circle class="bg" cx="35" cy="35" r="28"/><circle class="fg" id="progressCircle" cx="35" cy="35" r="28" stroke-dashoffset="176"/></svg><div class="center-text" id="progressPercent">0<small>%</small></div></div>
+<div class="stats-row" style="flex:1;margin:0;"><div class="stat"><div class="num" id="statAttempted">0</div><div class="lbl">تم حله</div></div><div class="stat"><div class="num" id="statCorrect">0</div><div class="lbl">صح</div></div><div class="stat"><div class="num" id="statWrong">0</div><div class="lbl">غلط</div></div></div></div>
+<div class="weak-link" id="weakLink" onclick="startWeakSectionQuiz()"><i class="fas fa-lightbulb"></i> أضعف نقطة: <span id="weakSectionName">-</span> (<span id="weakSectionRate">0%</span>)</div>
+<div class="action-row-bottom"><button class="big-btn warn" onclick="reviewMistakes()"><i class="fas fa-undo-alt"></i> راجع أخطائي</button><button class="big-btn secondary" onclick="resetProgress()"><i class="fas fa-trash-alt"></i> تصفير</button></div></div>
+</div>
+
+<div id="screen-quiz"><div class="quiz-meta"><span id="quiz-position"><i class="fas fa-question-circle"></i> 1 / 10</span><span id="timer-badge" class="hidden"><i class="fas fa-hourglass-half"></i> 30</span><span id="quiz-score"><i class="fas fa-check-circle" style="color:var(--success);"></i> 0 <i class="fas fa-times-circle" style="color:var(--danger);margin-right:6px;"></i> 0</span></div><div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+<div class="card"><div class="q-header"><div class="q-tag" id="q-section-tag"><i class="fas fa-tag"></i> القسم</div></div><div class="q-en" id="q-en"></div><div class="q-ar" id="q-ar"></div><div class="options" id="options"></div><div id="feedback" class="feedback-box hidden"></div><div class="nav-row"><button class="big-btn secondary" id="btn-quit" onclick="quitQuiz()" style="flex:0 0 60px;"><i class="fas fa-sign-out-alt"></i></button><button class="big-btn secondary" id="btn-prev" onclick="previousQuestion()" disabled><i class="fas fa-arrow-right"></i></button><button class="big-btn" id="btn-next" onclick="nextQuestion()" disabled><i class="fas fa-arrow-left"></i> التالي</button></div></div></div>
+
+<div id="screen-results"><div class="card" style="text-align:center;"><div class="card-title" style="border:none;text-align:center;padding:0;"><i class="fas fa-trophy" style="color:var(--accent);"></i> نتيجتك</div><div class="score-circle" id="score-circle" style="--pct:0;"><div class="pct" id="result-pct">0%</div><div class="lbl">النسبة</div></div><div class="stats-row"><div class="stat"><div class="num" id="res-total">0</div><div class="lbl">إجمالي</div></div><div class="stat"><div class="num" id="res-correct" style="color:var(--success);">0</div><div class="lbl">صح</div></div><div class="stat"><div class="num" id="res-wrong" style="color:var(--danger);">0</div><div class="lbl">غلط</div></div></div><button class="big-btn" onclick="goHome()"><i class="fas fa-home"></i> الرئيسية</button><button class="big-btn warn hidden" id="btn-show-mistakes" onclick="showMistakesList()"><i class="fas fa-list-ul"></i> الأخطاء</button></div><div id="mistakes-list-wrap" class="card hidden"><div class="card-title"><i class="fas fa-exclamation-triangle" style="color:var(--danger);"></i> أخطائك</div><div id="mistakes-list"></div></div></div>
+
+<div id="speech-hint" class="speech-hint"><i class="fas fa-volume-up"></i> جارٍ النطق...</div>
+<footer>Created by <span class="name">MR. YASSIN THARWAT</span></footer>
+</div>
+
+<script>
+// ======================================================================
+// البنك النهائي للتشريح - جميع الأسئلة محولة إلى MCQ
+// ======================================================================
+const ORIGINAL_BANK = [
+  // ==================== القسم 1: الجهاز العصبي المركزي ====================
+  {
+    name:"الجهاز العصبي المركزي",
+    nameEn:"Central Nervous System",
+    questions:[
+      {num:1,en:"Each cerebral hemisphere has:",ar:"كل نصف كرة مخية له:",options:[{en:"A. 2 lobes",ar:"أ. 2 فصوص",correct:false},{en:"B. 3 lobes",ar:"ب. 3 فصوص",correct:false},{en:"C. 4 lobes",ar:"ج. 4 فصوص",correct:true},{en:"D. 5 lobes",ar:"د. 5 فصوص",correct:false}],explain_ar:"كل نصف كرة مخية له 4 فصوص: جبهي، جداري، صدغي، قذالي."},
+      {num:2,en:"The two cerebral hemispheres are connected by:",ar:"نصفي الكرة المخية متصلان بواسطة:",options:[{en:"A. Corpus callosum",ar:"أ. الجسم الثفني",correct:true},{en:"B. Vermis",ar:"ب. الدودة",correct:false},{en:"C. Fornix",ar:"ج. القبو",correct:false},{en:"D. Medial longitudinal bundle",ar:"د. الحزمة الطولية الإنسية",correct:false}],explain_ar:"الجسم الثفني هو أكبر صوار يصل بين نصفي الكرة المخية."},
+      {num:3,en:"The brain stem consists of:",ar:"جذع الدماغ يتكون من:",options:[{en:"A. Midbrain, pons and cerebellum",ar:"أ. الدماغ المتوسط، الجسر والمخيخ",correct:false},{en:"B. Midbrain, pons and cerebrum",ar:"ب. الدماغ المتوسط، الجسر والمخ",correct:false},{en:"C. Midbrain, pons and thalamus",ar:"ج. الدماغ المتوسط، الجسر والمهاد",correct:false},{en:"D. Midbrain, pons and medulla oblongata",ar:"د. الدماغ المتوسط، الجسر والنخاع المستطيل",correct:true}],explain_ar:"جذع الدماغ يتكون من الدماغ المتوسط، الجسر، والنخاع المستطيل."},
+      {num:4,en:"The thalamus is a part of:",ar:"المهاد هو جزء من:",options:[{en:"A. Diencephalon",ar:"أ. الدماغ البيني",correct:true},{en:"B. Prosencephalon",ar:"ب. الدماغ الأمامي",correct:false},{en:"C. Telencephalon",ar:"ج. الدماغ الانتهائي",correct:false},{en:"D. Metencephalon",ar:"د. الدماغ الخلفي",correct:false}],explain_ar:"المهاد يقع في الدماغ البيني (Diencephalon)."},
+      {num:5,en:"The cavity within each cerebral hemisphere is called:",ar:"التجويف داخل كل نصف كرة مخية يُسمى:",options:[{en:"A. Lateral ventricle",ar:"أ. البطين الجانبي",correct:true},{en:"B. Third ventricle",ar:"ب. البطين الثالث",correct:false},{en:"C. Fourth ventricle",ar:"ج. البطين الرابع",correct:false},{en:"D. Fifth ventricle",ar:"د. البطين الخامس",correct:false}],explain_ar:"كل نصف كرة مخية يحتوي على بطين جانبي."},
+      {num:6,en:"The inner meningeal layer firmly adherent to brain substance is:",ar:"الطبقة السحائية الداخلية الملتصقة بالمخ هي:",options:[{en:"A. Pia mater",ar:"أ. الأم الحنون",correct:true},{en:"B. Arachnoid mater",ar:"ب. الأم العنكبوتية",correct:false},{en:"C. Dura mater",ar:"ج. الأم الجافية",correct:false},{en:"D. Tela choroidea",ar:"د. النسيج المشيمي",correct:false}],explain_ar:"الأم الحنون هي الطبقة الداخلية الرقيقة الملتصقة بالمخ."},
+      {num:7,en:"The spinal cord in adults ends at the level of:",ar:"النخاع الشوكي في البالغين ينتهي عند:",options:[{en:"A. Lower border of L1",ar:"أ. الحد السفلي للفقرة القطنية الأولى",correct:true},{en:"B. Lower border of L2",ar:"ب. الحد السفلي للفقرة القطنية الثانية",correct:false},{en:"C. Lower border of L3",ar:"ج. الحد السفلي للفقرة القطنية الثالثة",correct:false},{en:"D. Lower border of L4",ar:"د. الحد السفلي للفقرة القطنية الرابعة",correct:false}],explain_ar:"ينتهي النخاع الشوكي عند الفقرة القطنية الأولى (L1) في البالغين."},
+      {num:8,en:"The two cerebellar hemispheres are connected by:",ar:"نصفي المخيخ متصلان بواسطة:",options:[{en:"A. Superior longitudinal bundle",ar:"أ. الحزمة الطولية العلوية",correct:false},{en:"B. Inferior longitudinal bundle",ar:"ب. الحزمة الطولية السفلية",correct:false},{en:"C. Vermis",ar:"ج. الدودة",correct:true},{en:"D. Fornix",ar:"د. القبو",correct:false}],explain_ar:"الدودة (Vermis) تربط نصفي المخيخ."},
+      {num:9,en:"The length of the spinal cord in adults is:",ar:"طول النخاع الشوكي في البالغين هو:",options:[{en:"A. 45 cm",ar:"أ. 45 سم",correct:true},{en:"B. 55 cm",ar:"ب. 55 سم",correct:false},{en:"C. 35 cm",ar:"ج. 35 سم",correct:false},{en:"D. 25 cm",ar:"د. 25 سم",correct:false}],explain_ar:"النخاع الشوكي طوله حوالي 45 سم."},
+      {num:10,en:"The cavity within the spinal cord is the:",ar:"التجويف داخل النخاع الشوكي هو:",options:[{en:"A. Lateral ventricle",ar:"أ. البطين الجانبي",correct:false},{en:"B. Third ventricle",ar:"ب. البطين الثالث",correct:false},{en:"C. Fourth ventricle",ar:"ج. البطين الرابع",correct:false},{en:"D. Central canal",ar:"د. القناة المركزية",correct:true}],explain_ar:"النخاع الشوكي يحتوي على القناة المركزية."},
+      {num:11,en:"The cavity within the hindbrain is the:",ar:"التجويف داخل الدماغ الخلفي هو:",options:[{en:"A. Cerebral aqueduct",ar:"أ. القناة الدماغية",correct:false},{en:"B. Fourth ventricle",ar:"ب. البطين الرابع",correct:true},{en:"C. Third ventricle",ar:"ج. البطين الثالث",correct:false},{en:"D. Lateral ventricle",ar:"د. البطين الجانبي",correct:false}],explain_ar:"الدماغ الخلفي يحتوي على البطين الرابع."},
+      {num:12,en:"The cavity within the midbrain is the:",ar:"التجويف داخل الدماغ المتوسط هو:",options:[{en:"A. Cerebral aqueduct",ar:"أ. القناة الدماغية",correct:true},{en:"B. Fourth ventricle",ar:"ب. البطين الرابع",correct:false},{en:"C. Third ventricle",ar:"ج. البطين الثالث",correct:false},{en:"D. Lateral ventricle",ar:"د. البطين الجانبي",correct:false}],explain_ar:"الدماغ المتوسط يحتوي على القناة الدماغية (المائية)."},
+      {num:13,en:"The cavity between the two thalami is the:",ar:"التجويف بين المهادين هو:",options:[{en:"A. Cerebral aqueduct",ar:"أ. القناة الدماغية",correct:false},{en:"B. Fourth ventricle",ar:"ب. البطين الرابع",correct:false},{en:"C. Third ventricle",ar:"ج. البطين الثالث",correct:true},{en:"D. Lateral ventricle",ar:"د. البطين الجانبي",correct:false}],explain_ar:"البطين الثالث يقع بين المهادين."},
+      {num:14,en:"Pons, medulla and cerebellum are parts of:",ar:"الجسر والنخاع والمخيخ هي أجزاء من:",options:[{en:"A. Forebrain",ar:"أ. الدماغ الأمامي",correct:false},{en:"B. Midbrain",ar:"ب. الدماغ المتوسط",correct:false},{en:"C. Hindbrain",ar:"ج. الدماغ الخلفي",correct:true},{en:"D. None of the above",ar:"د. لا شيء مما سبق",correct:false}],explain_ar:"الجسر والنخاع والمخيخ كلها من الدماغ الخلفي."},
+      // ===== أسئلة جديدة من الـ Word =====
+      {num:15,en:"The cerebrospinal fluid lies within the ....",ar:"السائل النخاعي يقع داخل ....",options:[{en:"A. Epidural space",ar:"أ. الفضاء فوق الجافية",correct:false},{en:"B. Subdural space",ar:"ب. الفضاء تحت الجافية",correct:false},{en:"C. Subarachnoid space",ar:"ج. الفضاء تحت العنكبوتية",correct:true},{en:"D. Pleural space",ar:"د. الفضاء الجنبي",correct:false}],explain_ar:"السائل النخاعي يوجد في الحيز تحت العنكبوتية (Subarachnoid space)."},
+      {num:16,en:"The arachnoid mater and dura mater of the spinal cord end at the level of ....",ar:"تنتهي الأم العنكبوتية والأم الجافية للنخاع الشوكي عند مستوى ....",options:[{en:"A. 4th lumbar vertebra",ar:"أ. الفقرة القطنية الرابعة",correct:false},{en:"B. 5th lumbar vertebra",ar:"ب. الفقرة القطنية الخامسة",correct:false},{en:"C. 1st sacral vertebra",ar:"ج. الفقرة العجزية الأولى",correct:false},{en:"D. 2nd sacral vertebra",ar:"د. الفقرة العجزية الثانية",correct:true}],explain_ar:"تنتهي الأم العنكبوتية والأم الجافية عند الفقرة العجزية الثانية (S2)."}
+    ]
+  },
+  // ==================== القسم 2: الأعصاب القحفية ====================
+  {
+    name:"الأعصاب القحفية",
+    nameEn:"Cranial Nerves",
+    questions:[
+      {num:1,en:"The parasympathetic fibers in the glossopharyngeal nerve supply the:",ar:"الألياف نظيرة الودية في العصب البلعومي اللساني تغذي:",options:[{en:"A. Parotid gland",ar:"أ. الغدة النكفية",correct:true},{en:"B. Sublingual salivary gland",ar:"ب. الغدة اللسانية تحت الفك",correct:false},{en:"C. Submandibular salivary gland",ar:"ج. الغدة تحت الفك السفلي",correct:false},{en:"D. Lacrimal gland",ar:"د. الغدة الدمعية",correct:false}],explain_ar:"العصب التاسع (البلعومي اللساني) يحمل ألياف نظيرة ودية إلى الغدة النكفية."},
+      {num:2,en:"The parasympathetic fibers in the oculomotor nerve supply the:",ar:"الألياف نظيرة الودية في العصب المحرك للعين تغذي:",options:[{en:"A. Constrictor pupillae and ciliary muscles",ar:"أ. العضلة القابضة للحدقة والعضلة الهدبية",correct:true},{en:"B. Cardiac muscles",ar:"ب. عضلة القلب",correct:false},{en:"C. Lacrimal gland",ar:"ج. الغدة الدمعية",correct:false},{en:"D. None of the above",ar:"د. لا شيء مما سبق",correct:false}],explain_ar:"العصب الثالث (المحرك للعين) يعصب العضلة القابضة للحدقة والعضلة الهدبية."},
+      {num:3,en:"The parasympathetic fibers in the vagus nerve supply the:",ar:"الألياف نظيرة الودية في العصب المبهم تغذي:",options:[{en:"A. Ciliary muscle",ar:"أ. العضلة الهدبية",correct:false},{en:"B. Cardiac muscle",ar:"ب. عضلة القلب",correct:true},{en:"C. Constrictor pupillae",ar:"ج. قابضة الحدقة",correct:false},{en:"D. Dilator pupillae",ar:"د. موسعة الحدقة",correct:false}],explain_ar:"العصب العاشر (المبهم) يعصب عضلة القلب والأحشاء."},
+      {num:4,en:"The parasympathetic fibers in the facial nerve supply the:",ar:"الألياف نظيرة الودية في العصب الوجهي تغذي:",options:[{en:"A. Lacrimal gland",ar:"أ. الغدة الدمعية",correct:false},{en:"B. Sublingual salivary gland",ar:"ب. الغدة اللسانية تحت الفك",correct:false},{en:"C. Submandibular salivary gland",ar:"ج. الغدة تحت الفك السفلي",correct:false},{en:"D. All of the above",ar:"د. كل ما سبق",correct:true}],explain_ar:"العصب السابع (الوجهي) يعصب الغدة الدمعية والغدد اللعابية تحت الفك واللسانية."},
+      {num:5,en:"The smell sensation is transmitted through the:",ar:"حاسة الشم تنتقل عبر:",options:[{en:"A. 1st cranial nerve",ar:"أ. العصب القحفي الأول",correct:true},{en:"B. 2nd cranial nerve",ar:"ب. العصب القحفي الثاني",correct:false},{en:"C. 3rd cranial nerve",ar:"ج. العصب القحفي الثالث",correct:false},{en:"D. 4th cranial nerve",ar:"د. العصب القحفي الرابع",correct:false}],explain_ar:"العصب الشمي (I) ينقل حاسة الشم."},
+      {num:6,en:"The visual sensation is transmitted through the:",ar:"حاسة البصر تنتقل عبر:",options:[{en:"A. 1st cranial nerve",ar:"أ. العصب القحفي الأول",correct:false},{en:"B. 2nd cranial nerve",ar:"ب. العصب القحفي الثاني",correct:true},{en:"C. 3rd cranial nerve",ar:"ج. العصب القحفي الثالث",correct:false},{en:"D. 4th cranial nerve",ar:"د. العصب القحفي الرابع",correct:false}],explain_ar:"العصب البصري (II) ينقل حاسة البصر."},
+      {num:7,en:"The hearing sensation is transmitted through the:",ar:"حاسة السمع تنتقل عبر:",options:[{en:"A. 5th cranial nerve",ar:"أ. العصب القحفي الخامس",correct:false},{en:"B. 6th cranial nerve",ar:"ب. العصب القحفي السادس",correct:false},{en:"C. 7th cranial nerve",ar:"ج. العصب القحفي السابع",correct:false},{en:"D. 8th cranial nerve",ar:"د. العصب القحفي الثامن",correct:true}],explain_ar:"العصب الدهليزي القوقعي (VIII) ينقل السمع والتوازن."},
+      {num:8,en:"All the extraocular muscles are supplied by:",ar:"جميع عضلات العين الخارجية يعصبها:",options:[{en:"A. 3rd cranial nerve",ar:"أ. العصب القحفي الثالث",correct:false},{en:"B. 4th cranial nerve",ar:"ب. العصب القحفي الرابع",correct:false},{en:"C. 6th cranial nerve",ar:"ج. العصب القحفي السادس",correct:false},{en:"D. All of the above",ar:"د. كل ما سبق",correct:true}],explain_ar:"العصب الثالث (المحرك للعين)، الرابع (البكري)، والسادس (المبعد) يعصبون عضلات العين."},
+      {num:9,en:"The muscles of mastication are supplied by:",ar:"عضلات المضغ يعصبها:",options:[{en:"A. Ophthalmic division of the 5th cranial nerve",ar:"أ. الفرع العيني للعصب الخامس",correct:false},{en:"B. Maxillary division of the 5th cranial nerve",ar:"ب. الفرع الفكي العلوي للعصب الخامس",correct:false},{en:"C. Mandibular division of the 5th cranial nerve",ar:"ج. الفرع الفكي السفلي للعصب الخامس",correct:true},{en:"D. Lingual division of the 5th cranial nerve",ar:"د. الفرع اللساني للعصب الخامس",correct:false}],explain_ar:"الفرع الفكي السفلي للعصب مثلث التوائم (V3) يعصب عضلات المضغ."},
+      {num:10,en:"Muscles of facial expression are supplied by:",ar:"عضلات تعبير الوجه يعصبها:",options:[{en:"A. 5th cranial nerve",ar:"أ. العصب القحفي الخامس",correct:false},{en:"B. 6th cranial nerve",ar:"ب. العصب القحفي السادس",correct:false},{en:"C. 7th cranial nerve",ar:"ج. العصب القحفي السابع",correct:true},{en:"D. 8th cranial nerve",ar:"د. العصب القحفي الثامن",correct:false}],explain_ar:"العصب الوجهي (VII) يعصب عضلات تعبير الوجه."},
+      {num:11,en:"Muscles of the tongue are supplied by:",ar:"عضلات اللسان يعصبها:",options:[{en:"A. 9th cranial nerve",ar:"أ. العصب القحفي التاسع",correct:false},{en:"B. 10th cranial nerve",ar:"ب. العصب القحفي العاشر",correct:false},{en:"C. 11th cranial nerve",ar:"ج. العصب القحفي الحادي عشر",correct:false},{en:"D. 12th cranial nerve",ar:"د. العصب القحفي الثاني عشر",correct:true}],explain_ar:"العصب تحت اللسان (XII) يعصب عضلات اللسان."},
+      {num:12,en:"Muscles of the larynx are supplied by:",ar:"عضلات الحنجرة يعصبها:",options:[{en:"A. 9th cranial nerve",ar:"أ. العصب القحفي التاسع",correct:false},{en:"B. 10th cranial nerve",ar:"ب. العصب القحفي العاشر",correct:true},{en:"C. 11th cranial nerve",ar:"ج. العصب القحفي الحادي عشر",correct:false},{en:"D. 12th cranial nerve",ar:"د. العصب القحفي الثاني عشر",correct:false}],explain_ar:"العصب المبهم (X) يعصب عضلات الحنجرة (عبر العصب الحنجري الراجع)."},
+      {num:13,en:"Muscles of the palate are supplied by:",ar:"عضلات الحنك يعصبها:",options:[{en:"A. 9th cranial nerve",ar:"أ. العصب القحفي التاسع",correct:false},{en:"B. 10th cranial nerve",ar:"ب. العصب القحفي العاشر",correct: false},{en:"C. 11th cranial nerve",ar:"ج. العصب القحفي الحادي عشر",correct: true},{en:"D. 12th cranial nerve",ar:"د. العصب القحفي الثاني عشر",correct:false}],explain_ar:"العصب المبهم (XI) يعصب عضلات الحنك (عبر الضفيرة البلعومية)."},
+      {num:14,en:"The cranial nerves are:",ar:"الأعصاب القحفية عددها:",options:[{en:"A. 9 pairs",ar:"أ. 9 أزواج",correct:false},{en:"B. 10 pairs",ar:"ب. 10 أزواج",correct:false},{en:"C. 11 pairs",ar:"ج. 11 زوجًا",correct:false},{en:"D. 12 pairs",ar:"د. 12 زوجًا",correct:true}],explain_ar:"يوجد 12 زوجًا من الأعصاب القحفية."},
+      {num:15,en:"The spinal nerves are:",ar:"الأعصاب النخاعية عددها:",options:[{en:"A. 30 pairs",ar:"أ. 30 زوجًا",correct:false},{en:"B. 31 pairs",ar:"ب. 31 زوجًا",correct:true},{en:"C. 32 pairs",ar:"ج. 32 زوجًا",correct:false},{en:"D. 33 pairs",ar:"د. 33 زوجًا",correct:false}],explain_ar:"يوجد 31 زوجًا من الأعصاب النخاعية."},
+      {num:16,en:"The cervical nerves are:",ar:"الأعصاب العنقية عددها:",options:[{en:"A. 6 pairs",ar:"أ. 6 أزواج",correct:false},{en:"B. 7 pairs",ar:"ب. 7 أزواج",correct:false},{en:"C. 8 pairs",ar:"ج. 8 أزواج",correct:true},{en:"D. 9 pairs",ar:"د. 9 أزواج",correct:false}],explain_ar:"يوجد 8 أزواج من الأعصاب العنقية."},
+      {num:17,en:"The thoracic nerves are:",ar:"الأعصاب الصدرية عددها:",options:[{en:"A. 10 pairs",ar:"أ. 10 أزواج",correct:false},{en:"B. 11 pairs",ar:"ب. 11 زوجًا",correct:false},{en:"C. 12 pairs",ar:"ج. 12 زوجًا",correct:true},{en:"D. 13 pairs",ar:"د. 13 زوجًا",correct:false}],explain_ar:"يوجد 12 زوجًا من الأعصاب الصدرية."},
+      {num:18,en:"The lumbar nerves are:",ar:"الأعصاب القطنية عددها:",options:[{en:"A. 5 pairs",ar:"أ. 5 أزواج",correct:true},{en:"B. 6 pairs",ar:"ب. 6 أزواج",correct:false},{en:"C. 7 pairs",ar:"ج. 7 أزواج",correct:false},{en:"D. 8 pairs",ar:"د. 8 أزواج",correct:false}],explain_ar:"يوجد 5 أزواج من الأعصاب القطنية."}
+    ]
+  },
+  // ==================== القسم 3: القلب ====================
+  {
+    name:"القلب",
+    nameEn:"Heart",
+    questions:[
+      {num:1,en:"The apex of the heart is formed by:",ar:"قمة القلب تتكون من:",options:[{en:"A. The left ventricle only",ar:"أ. البطين الأيسر فقط",correct:true},{en:"B. The right ventricle only",ar:"ب. البطين الأيمن فقط",correct:false},{en:"C. Both ventricles",ar:"ج. كلا البطينين",correct:false},{en:"D. Both atria",ar:"د. كلا الأذينين",correct:false}],explain_ar:"قمة القلب يتكون من البطين الأيسر فقط."},
+      {num:2,en:"The base of the heart is formed by:",ar:"قاعدة القلب تتكون من:",options:[{en:"A. Both atria",ar:"أ. كلا الأذينين",correct:true},{en:"B. Both ventricles",ar:"ب. كلا البطينين",correct:false},{en:"C. The right atrium only",ar:"ج. الأذين الأيمن فقط",correct:false},{en:"D. The left atrium only",ar:"د. الأذين الأيسر فقط",correct:false}],explain_ar:"قاعدة القلب تتكون من كلا الأذينين."},
+      {num:3,en:"The diaphragmatic surface of the heart is formed by:",ar:"السطح الحجابي للقلب يتكون من:",options:[{en:"A. Both atria",ar:"أ. كلا الأذينين",correct:false},{en:"B. Both ventricles",ar:"ب. كلا البطينين",correct:true},{en:"C. The right ventricle only",ar:"ج. البطين الأيمن فقط",correct:false},{en:"D. The left ventricle only",ar:"د. البطين الأيسر فقط",correct:false}],explain_ar:"السطح الحجابي يتكون من كلا البطينين (مع غلبة البطين الأيسر)."},
+      {num:4,en:"The sternocostal surface of the heart is formed by:",ar:"السطح القصي الضلعي للقلب يتكون من:",options:[{en:"A. Both atria above and both ventricles below",ar:"أ. الأذينان بالأعلى والبطينان بالأسفل",correct:true},{en:"B. Both atria below and both ventricles above",ar:"ب. الأذينان بالأسفل والبطينان بالأعلى",correct:false},{en:"C. The right ventricle only",ar:"ج. البطين الأيمن فقط",correct:false},{en:"D. The left ventricle only",ar:"د. البطين الأيسر فقط",correct:false}],explain_ar:"السطح القصي الضلعي يتكون من الأذينين بالأعلى والبطينين بالأسفل."},
+      {num:5,en:"The right surface of the heart is formed by:",ar:"السطح الأيمن للقلب يتكون من:",options:[{en:"A. The right atrium only",ar:"أ. الأذين الأيمن فقط",correct:true},{en:"B. The right ventricle only",ar:"ب. البطين الأيمن فقط",correct:false},{en:"C. Both the right atrium and ventricle",ar:"ج. الأذين الأيمن والبطين الأيمن معًا",correct:false},{en:"D. Both ventricles",ar:"د. كلا البطينين",correct:false}],explain_ar:"السطح الأيمن يتكون من الأذين الأيمن فقط."},
+      {num:6,en:"The mitral valve guards the:",ar:"الصمام المترالي يحمي:",options:[{en:"A. Right atrioventricular opening",ar:"أ. الفتحة الأذينية البطينية اليمنى",correct:false},{en:"B. Left atrioventricular opening",ar:"ب. الفتحة الأذينية البطينية اليسرى",correct:true},{en:"C. Pulmonary opening",ar:"ج. الفتحة الرئوية",correct:false},{en:"D. Aortic opening",ar:"د. الفتحة الأبهرية",correct:false}],explain_ar:"الصمام المترالي (ثنائي الشرف) يحمي الفتحة الأذينية البطينية اليسرى."},
+      {num:7,en:"The tricuspid valve guards the:",ar:"الصمام ثلاثي الشرف يحمي:",options:[{en:"A. Right atrioventricular opening",ar:"أ. الفتحة الأذينية البطينية اليمنى",correct:true},{en:"B. Left atrioventricular opening",ar:"ب. الفتحة الأذينية البطينية اليسرى",correct:false},{en:"C. Pulmonary opening",ar:"ج. الفتحة الرئوية",correct:false},{en:"D. Aortic opening",ar:"د. الفتحة الأبهرية",correct:false}],explain_ar:"الصمام ثلاثي الشرف يحمي الفتحة الأذينية البطينية اليمنى."},
+      {num:8,en:"The four pulmonary veins carry:",ar:"الأوردة الرئوية الأربعة تحمل:",options:[{en:"A. Oxygenated blood",ar:"أ. دم مؤكسج",correct:true},{en:"B. Deoxygenated blood",ar:"ب. دم غير مؤكسج",correct:false},{en:"C. Mixed blood",ar:"ج. دم مختلط",correct:false},{en:"D. Lymph",ar:"د. لمف",correct:false}],explain_ar:"الأوردة الرئوية تحمل الدم المؤكسج من الرئتين إلى الأذين الأيسر."},
+      {num:9,en:"The pulmonary arteries carry:",ar:"الشرايين الرئوية تحمل:",options:[{en:"A. Oxygenated blood",ar:"أ. دم مؤكسج",correct:false},{en:"B. Deoxygenated blood",ar:"ب. دم غير مؤكسج",correct:true},{en:"C. Mixed blood",ar:"ج. دم مختلط",correct:false},{en:"D. Lymph",ar:"د. لمف",correct:false}],explain_ar:"الشرايين الرئوية تحمل الدم غير المؤكسج من البطين الأيمن إلى الرئتين."},
+      {num:10,en:"The arterial supply of the heart is from:",ar:"التزويد الشرياني للقلب يأتي من:",options:[{en:"A. Both coronary arteries",ar:"أ. كلا الشريانين التاجيين",correct:true},{en:"B. Both pulmonary arteries",ar:"ب. كلا الشريانين الرئويين",correct:false},{en:"C. Both carotid arteries",ar:"ج. كلا الشريانين السباتيين",correct:false},{en:"D. Both intercostal arteries",ar:"د. كلا الشريانين الوربيين",correct:false}],explain_ar:"الشرايين التاجية (الأيمن والأيسر) تغذي عضلة القلب."},
+      {num:11,en:"The ascending aorta arises from the:",ar:"الأبهر الصاعد ينشأ من:",options:[{en:"A. Right atrium",ar:"أ. الأذين الأيمن",correct:false},{en:"B. Left atrium",ar:"ب. الأذين الأيسر",correct:false},{en:"C. Right ventricle",ar:"ج. البطين الأيمن",correct:false},{en:"D. Left ventricle",ar:"د. البطين الأيسر",correct:true}],explain_ar:"الأبهر الصاعد ينشأ من البطين الأيسر."}
+    ]
+  },
+  // ==================== القسم 4: الجهاز التنفسي ====================
+  {
+    name:"الجهاز التنفسي",
+    nameEn:"Respiratory System",
+    questions:[
+      {num:1,en:"Which of the following is a single cartilage of the larynx?",ar:"أي من التالي هو غضروف مفرد للحنجرة؟",options:[{en:"A. Cricoid",ar:"أ. الغضروف الحلقي",correct:true},{en:"B. Arytenoid",ar:"ب. الغضروف الطرجهالي",correct:false},{en:"C. Corniculate",ar:"ج. الغضروف القريني",correct:false},{en:"D. Cuneiforms",ar:"د. الغضاريف الوتدية",correct:false}],explain_ar:"الغضروف الحلقي هو غضروف مفرد (باقي الخيارات مزدوجة)."},
+      {num:2,en:"Which of the following is a paired cartilage of the larynx?",ar:"أي من التالي هو غضروف مزدوج للحنجرة؟",options:[{en:"A. Cricoid",ar:"أ. الغضروف الحلقي",correct:false},{en:"B. Epiglottis",ar:"ب. لسان المزمار",correct:false},{en:"C. Arytenoid",ar:"ج. الغضروف الطرجهالي",correct:true},{en:"D. Thyroid",ar:"د. الغضروف الدرقي",correct:false}],explain_ar:"الغضاريف الطرجهالية مزدوجة."},
+      {num:3,en:"The left main bronchus is:",ar:"القصبة الهوائية اليسرى:",options:[{en:"A. Shorter than the right main bronchus",ar:"أ. أقصر من القصبة اليمنى",correct:false},{en:"B. Longer than the right main bronchus",ar:"ب. أطول من القصبة اليمنى",correct:true},{en:"C. Equal to the right main bronchus",ar:"ج. مساوية للقصبة اليمنى",correct:false},{en:"D. Wider than the right main bronchus",ar:"د. أوسع من القصبة اليمنى",correct:false}],explain_ar:"القصبة اليسرى أطول من اليمنى، وأضيق وأقل ميلًا."},
+      {num:4,en:"The right lung has:",ar:"الرئة اليمنى لها:",options:[{en:"A. Two lobes",ar:"أ. فصان",correct:false},{en:"B. Three lobes",ar:"ب. ثلاثة فصوص",correct:true},{en:"C. Four lobes",ar:"ج. أربعة فصوص",correct:false},{en:"D. Five lobes",ar:"د. خمسة فصوص",correct:false}],explain_ar:"الرئة اليمنى لها ثلاثة فصوص (علوي، أوسط، سفلي)."},
+      {num:5,en:"The left lung has:",ar:"الرئة اليسرى لها:",options:[{en:"A. Two lobes",ar:"أ. فصان",correct:true},{en:"B. Three lobes",ar:"ب. ثلاثة فصوص",correct:false},{en:"C. Four lobes",ar:"ج. أربعة فصوص",correct:false},{en:"D. Five lobes",ar:"د. خمسة فصوص",correct:false}],explain_ar:"الرئة اليسرى لها فصان (علوي وسفلي)."},
+      {num:6,en:"Which of these sinuses does NOT belong to the paranasal sinuses?",ar:"أي من هذه الجيوب لا ينتمي للجيوب الأنفية؟",options:[{en:"A. Maxillary sinus",ar:"أ. الجيب الفكي",correct:false},{en:"B. Frontal sinus",ar:"ب. الجيب الجبهي",correct:false},{en:"C. Coronary sinus",ar:"ج. الجيب التاجي",correct:true},{en:"D. Sphenoidal sinus",ar:"د. الجيب الوتدي",correct:false}],explain_ar:"الجيب التاجي (Coronary sinus) هو وريد في القلب وليس جيبًا أنفيًا."},
+      {num:7,en:"Which cartilage does NOT belong to the nasal septum?",ar:"أي غضروف لا ينتمي للحاجز الأنفي؟",options:[{en:"A. Vomer",ar:"أ. الميكعة",correct:false},{en:"B. Septal cartilage",ar:"ب. الغضروف الحاجزي",correct:false},{en:"C. Cricoid cartilage",ar:"ج. الغضروف الحلقي",correct:true},{en:"D. Alar cartilage",ar:"د. الغضروف الجناحي",correct:false}],explain_ar:"الغضروف الحلقي في الحنجرة وليس في الحاجز الأنفي."},
+      {num:8,en:"Which of the following opens in the inferior meatus of the nose?",ar:"أي من التالي يفتح في المحارة الأنفية السفلية؟",options:[{en:"A. Maxillary air sinus",ar:"أ. الجيب الفكي",correct:false},{en:"B. Nasolacrimal duct",ar:"ب. القناة الدمعية الأنفية",correct:true},{en:"C. Frontal air sinus",ar:"ج. الجيب الجبهي",correct:false},{en:"D. Pharyngotympanic duct",ar:"د. القناة البلعومية الطبلية",correct:false}],explain_ar:"القناة الدمعية الأنفية تفتح في الميأة السفلية."},
+      {num:9,en:"Which of the following shares in the nasal septum?",ar:"أي من التالي يساهم في الحاجز الأنفي؟",options:[{en:"A. Vomer",ar:"أ. الميكعة",correct:true},{en:"B. Frontal bone",ar:"ب. العظم الجبهي",correct:false},{en:"C. Maxillary bone",ar:"ج. العظم الفكي",correct:false},{en:"D. Sphenoid bone",ar:"د. العظم الوتدي",correct:false}],explain_ar:"الميكعة (Vomer) تشكل الجزء الخلفي السفلي من الحاجز الأنفي."},
+      {num:10,en:"The following structures pass through the hilum of the right lung:",ar:"أي من التالي يمر عبر نقير الرئة اليمنى؟",options:[{en:"A. Right pulmonary artery",ar:"أ. الشريان الرئوي الأيمن",correct:false},{en:"B. Right main bronchus",ar:"ب. القصبة الرئيسية اليمنى",correct:false},{en:"C. Right pulmonary vein",ar:"ج. الوريد الرئوي الأيمن",correct:false},{en:"D. All of the above",ar:"د. كل ما سبق",correct:true}],explain_ar:"جميعها تمر عبر نقير الرئة."},
+      {num:11,en:"The aortic opening in the diaphragm lies opposite:",ar:"الفتحة الأبهرية في الحجاب الحاجز تقابل:",options:[{en:"A. 6th thoracic vertebra",ar:"أ. الفقرة الصدرية السادسة",correct:false},{en:"B. 8th thoracic vertebra",ar:"ب. الفقرة الصدرية الثامنة",correct:false},{en:"C. 10th thoracic vertebra",ar:"ج. الفقرة الصدرية العاشرة",correct:false},{en:"D. 12th thoracic vertebra",ar:"د. الفقرة الصدرية الثانية عشرة",correct:true}],explain_ar:"الفتحة الأبهرية تقع عند مستوى الفقرة الصدرية T12."},
+      // ===== سؤال جديد من الـ Word =====
+      {num:12,en:"Which of the following belongs to the paranasal air sinuses?",ar:"أي من التالي ينتمي للجيوب الأنفية الهوائية؟",options:[{en:"A. Sphenoidal sinus",ar:"أ. الجيب الوتدي",correct:true},{en:"B. Transverse sinus",ar:"ب. الجيب المستعرض",correct:false},{en:"C. Cavernous sinus",ar:"ج. الجيب الكهفي",correct:false},{en:"D. Sigmoid sinus",ar:"د. الجيب السيني",correct:false}],explain_ar:"الجيب الوتدي هو أحد الجيوب الأنفية الهوائية، بينما الخيارات الأخرى هي جيوب وريدية في الجمجمة."}
+    ]
+  },
+  // ==================== القسم 5: الجهاز البولي التناسلي ====================
+  {
+    name:"الجهاز البولي التناسلي",
+    nameEn:"Urogenital System",
+    questions:[
+      {num:1,en:"Which of the following belongs to the male genital system?",ar:"أي من التالي يتبع الجهاز التناسلي الذكري؟",options:[{en:"A. Uterus",ar:"أ. الرحم",correct:false},{en:"B. Ureter",ar:"ب. الحالب",correct:false},{en:"C. Prostate",ar:"ج. البروستاتا",correct:true},{en:"D. Uterine tube",ar:"د. قناة فالوب",correct:false}],explain_ar:"البروستاتا غدة ملحقة في الجهاز التناسلي الذكري."},
+      {num:2,en:"The male urethra has:",ar:"الإحليل الذكري طوله:",options:[{en:"A. 10 cm",ar:"أ. 10 سم",correct:false},{en:"B. 15 cm",ar:"ب. 15 سم",correct:false},{en:"C. 20 cm",ar:"ج. 20 سم",correct:true},{en:"D. 25 cm",ar:"د. 25 سم",correct:false}],explain_ar:"الإحليل الذكري طوله حوالي 20 سم."},
+      {num:3,en:"The female urethra has:",ar:"الإحليل الأنثوي طوله:",options:[{en:"A. 2 cm",ar:"أ. 2 سم",correct:false},{en:"B. 3 cm",ar:"ب. 3 سم",correct:false},{en:"C. 4 cm",ar:"ج. 4 سم",correct:true},{en:"D. 5 cm",ar:"د. 5 سم",correct:false}],explain_ar:"الإحليل الأنثوي طوله حوالي 4 سم (أو 4-5 سم)."},
+      {num:4,en:"The prostatic gland surrounds the:",ar:"البروستاتا تحيط بـ:",options:[{en:"A. 1st part of male urethra",ar:"أ. الجزء الأول من الإحليل الذكري",correct:true},{en:"B. 2nd part of male urethra",ar:"ب. الجزء الثاني من الإحليل الذكري",correct:false},{en:"C. 3rd part of male urethra",ar:"ج. الجزء الثالث من الإحليل الذكري",correct:false},{en:"D. Female urethra",ar:"د. الإحليل الأنثوي",correct:false}],explain_ar:"البروستاتا تحيط بالجزء الأول (الجزء البروستاتي) من الإحليل الذكري."},
+      {num:5,en:"The normal length of the ureter is:",ar:"طول الحالب الطبيعي هو:",options:[{en:"A. 10 cm",ar:"أ. 10 سم",correct:false},{en:"B. 15 cm",ar:"ب. 15 سم",correct:false},{en:"C. 20 cm",ar:"ج. 20 سم",correct:false},{en:"D. 25 cm",ar:"د. 25 سم",correct:true}],explain_ar:"الحالب طوله حوالي 25 سم."},
+      {num:6,en:"The hilum of the kidney lies at the level of:",ar:"نقير الكلية يقع عند مستوى:",options:[{en:"A. 1st lumbar vertebra",ar:"أ. الفقرة القطنية الأولى",correct:true},{en:"B. 2nd lumbar vertebra",ar:"ب. الفقرة القطنية الثانية",correct:false},{en:"C. 3rd lumbar vertebra",ar:"ج. الفقرة القطنية الثالثة",correct:false},{en:"D. 4th lumbar vertebra",ar:"د. الفقرة القطنية الرابعة",correct:false}],explain_ar:"نقير الكلية يقع عند الفقرة القطنية الأولى."},
+      {num:7,en:"The right kidney lies at a:",ar:"الكلية اليمنى تقع في:",options:[{en:"A. Higher level than the left kidney",ar:"أ. مستوى أعلى من الكلية اليسرى",correct:false},{en:"B. Lower level than the left kidney",ar:"ب. مستوى أقل من الكلية اليسرى",correct:true},{en:"C. Same level as the left kidney",ar:"ج. نفس مستوى الكلية اليسرى",correct:false},{en:"D. Beside the left kidney",ar:"د. بجوار الكلية اليسرى",correct:false}],explain_ar:"الكلية اليمنى تنخفض قليلاً بسبب وجود الكبد."},
+      {num:8,en:"The male urethra has the following parts:",ar:"الإحليل الذكري له الأجزاء التالية:",options:[{en:"A. Prostatic part",ar:"أ. الجزء البروستاتي",correct:false},{en:"B. Membranous part",ar:"ب. الجزء الغشائي",correct:false},{en:"C. Penile part",ar:"ج. الجزء القضيبي",correct:false},{en:"D. All of the above",ar:"د. كل ما سبق",correct:true}],explain_ar:"الإحليل الذكري يتكون من أجزاء بروستاتي، غشائي، وقضيبي."},
+      {num:9,en:"The length of the female urethra is:",ar:"طول الإحليل الأنثوي هو:",options:[{en:"A. 4 cm",ar:"أ. 4 سم",correct:true},{en:"B. 5 cm",ar:"ب. 5 سم",correct:false},{en:"C. 6 cm",ar:"ج. 6 سم",correct:false},{en:"D. 7 cm",ar:"د. 7 سم",correct:false}],explain_ar:"الإحليل الأنثوي طوله حوالي 4 سم (أو 4-5 سم)."},
+      {num:10,en:"The testis is:",ar:"الخصية هي:",options:[{en:"A. An endocrine gland",ar:"أ. غدة صماء",correct:false},{en:"B. An exocrine gland",ar:"ب. غدة خارجية الإفراز",correct:false},{en:"C. A mixed gland",ar:"ج. غدة مختلطة",correct:true},{en:"D. A sebaceous gland",ar:"د. غدة دهنية",correct:false}],explain_ar:"الخصية غدة مختلطة (تفرز هرمون التستوستيرون والحيوانات المنوية)."},
+      {num:11,en:"The ejaculatory duct opens into:",ar:"القناة القاذفة تفتح في:",options:[{en:"A. Prostatic urethra",ar:"أ. الإحليل البروستاتي",correct:true},{en:"B. Membranous urethra",ar:"ب. الإحليل الغشائي",correct:false},{en:"C. Spongy urethra",ar:"ج. الإحليل الإسفنجي",correct:false},{en:"D. Penile urethra",ar:"د. الإحليل القضيبي",correct:false}],explain_ar:"القناة القاذفة تفتح في الجزء البروستاتي من الإحليل."},
+      {num:12,en:"The prostatic gland belongs to the:",ar:"البروستاتا تتبع:",options:[{en:"A. Male genital system",ar:"أ. الجهاز التناسلي الذكري",correct:true},{en:"B. Female genital system",ar:"ب. الجهاز التناسلي الأنثوي",correct:false},{en:"C. Respiratory system",ar:"ج. الجهاز التنفسي",correct:false},{en:"D. Urinary system",ar:"د. الجهاز البولي",correct:false}],explain_ar:"البروستاتا جزء من الجهاز التناسلي الذكري."},
+      // ===== أسئلة جديدة من الـ Word =====
+      {num:13,en:"The normal position of the uterus is ....",ar:"الوضع الطبيعي للرحم هو ....",options:[{en:"A. Anteflexion anteversion",ar:"أ. انثناء أمامي و ميل أمامي",correct:true},{en:"B. Anteflexion retroversion",ar:"ب. انثناء أمامي و ميل خلفي",correct:false},{en:"C. Retroversion anteflexion",ar:"ج. ميل خلفي و انثناء أمامي",correct:false},{en:"D. Retroversion retroflexion",ar:"د. ميل خلفي و انثناء خلفي",correct:false}],explain_ar:"الوضع الطبيعي للرحم هو انثناء أمامي (Anteflexion) وميل أمامي (Anteversion)."},
+      {num:14,en:"Which of the following female reproductive organs is the site of fertilization?",ar:"أي من الأعضاء التناسلية الأنثوية التالية هو موقع الإخصاب؟",options:[{en:"A. The ovary",ar:"أ. المبيض",correct:false},{en:"B. The uterine tube",ar:"ب. قناة فالوب",correct:true},{en:"C. The uterus",ar:"ج. الرحم",correct:false},{en:"D. The vagina",ar:"د. المهبل",correct:false}],explain_ar:"الإخصاب يحدث في قناة فالوب (الجزء الأمبولي)."},
+      {num:15,en:"The fertilized ovum is implanted in the ....",ar:"تنغرس البويضة المخصبة في ....",options:[{en:"A. Ovary",ar:"أ. المبيض",correct:false},{en:"B. Uterine tube",ar:"ب. قناة فالوب",correct:false},{en:"C. Uterus",ar:"ج. الرحم",correct:true},{en:"D. Vagina",ar:"د. المهبل",correct:false}],explain_ar:"تنغرس البويضة المخصبة في بطانة الرحم."}
+    ]
+  },
+  // ==================== القسم 6: العظام والمفاصل ====================
+  {
+    name:"العظام والمفاصل",
+    nameEn:"Bones and Joints",
+    questions:[
+      {num:1,en:"Terms of position include:",ar:"مصطلحات الوضع تشمل:",options:[{en:"A. Flexion",ar:"أ. الثني",correct:false},{en:"B. Anterior",ar:"ب. أمامي",correct:true},{en:"C. Circumduction",ar:"ج. التديير",correct:false},{en:"D. Adduction",ar:"د. التقريب",correct:false}],explain_ar:"مصطلحات الوضع: أمامي، خلفي، إنسي، وحشي، قريب، بعيد، علوي، سفلي."},
+      {num:2,en:"Terms of movement include:",ar:"مصطلحات الحركة تشمل:",options:[{en:"A. Anterior",ar:"أ. أمامي",correct:false},{en:"B. Flexion",ar:"ب. الثني",correct:true},{en:"C. Medial",ar:"ج. إنسي",correct:false},{en:"D. Lateral",ar:"د. وحشي",correct:false}],explain_ar:"مصطلحات الحركة: ثني، بسط، تقريب، تبعيد، تدوير، إلخ."},
+      {num:3,en:"The structure near the median plane is called:",ar:"التركيب القريب من المستوى الناصف يُسمى:",options:[{en:"A. Superior",ar:"أ. علوي",correct:false},{en:"B. Proximal",ar:"ب. قريب",correct:false},{en:"C. Medial",ar:"ج. إنسي",correct:true},{en:"D. Anterior",ar:"د. أمامي",correct:false}],explain_ar:"إنسي (Medial) يعني قريب من خط الوسط."},
+      {num:4,en:"The structure near the head is called:",ar:"التركيب القريب من الرأس يُسمى:",options:[{en:"A. Lateral",ar:"أ. وحشي",correct:false},{en:"B. Inferior",ar:"ب. سفلي",correct:false},{en:"C. Superior",ar:"ج. علوي",correct:true},{en:"D. Distal",ar:"د. بعيد",correct:false}],explain_ar:"علوي (Superior) يعني باتجاه الرأس."},
+      {num:5,en:"The structure near the foot is called:",ar:"التركيب القريب من القدم يُسمى:",options:[{en:"A. Lateral",ar:"أ. وحشي",correct:false},{en:"B. Inferior",ar:"ب. سفلي",correct:true},{en:"C. Superior",ar:"ج. علوي",correct:false},{en:"D. Distal",ar:"د. بعيد",correct:false}],explain_ar:"سفلي (Inferior) يعني باتجاه القدم."},
+      {num:6,en:"Straightening of the joint is called:",ar:"بسط المفصل يُسمى:",options:[{en:"A. Abduction",ar:"أ. التبعيد",correct:false},{en:"B. Adduction",ar:"ب. التقريب",correct:false},{en:"C. Flexion",ar:"ج. الثني",correct:false},{en:"D. Extension",ar:"د. البسط",correct:true}],explain_ar:"البسط (Extension) هو عكس الثني."},
+      {num:7,en:"The fatty layer under the skin is called:",ar:"الطبقة الدهنية تحت الجلد تُسمى:",options:[{en:"A. Dermis",ar:"أ. الأدمة",correct:false},{en:"B. Epidermis",ar:"ب. البشرة",correct:false},{en:"C. Superficial fascia",ar:"ج. اللفافة السطحية",correct:true},{en:"D. Deep fascia",ar:"د. اللفافة العميقة",correct:false}],explain_ar:"اللفافة السطحية تحتوي على الدهون تحت الجلد."},
+      {num:8,en:"The muscles of the intestine are:",ar:"عضلات الأمعاء هي:",options:[{en:"A. Skeletal",ar:"أ. هيكلية",correct:false},{en:"B. Smooth",ar:"ب. ملساء",correct:true},{en:"C. Cardiac",ar:"ج. قلبية",correct:false}],explain_ar:"عضلات الأمعاء ملساء (إرادية)."},
+      {num:9,en:"Skeletal muscles are:",ar:"العضلات الهيكلية هي:",options:[{en:"A. Involuntary",ar:"أ. لاإرادية",correct:false},{en:"B. Attached to bones",ar:"ب. متصلة بالعظام",correct:true},{en:"C. Found in the intestine",ar:"ج. موجودة في الأمعاء",correct:false},{en:"D. Smooth",ar:"د. ملساء",correct:false}],explain_ar:"العضلات الهيكلية إرادية ومتصلة بالعظام."},
+      {num:10,en:"The sutures of the skull are an example of:",ar:"درزات الجمجمة مثال على:",options:[{en:"A. Fibrous joints",ar:"أ. مفاصل ليفية",correct:true},{en:"B. Cartilaginous joints",ar:"ب. مفاصل غضروفية",correct:false},{en:"C. Synovial joints",ar:"ج. مفاصل زلالية",correct:false}],explain_ar:"الدرزات هي مفاصل ليفية (لا تتحرك)."},
+      {num:11,en:"Which is an example of secondary cartilaginous joint?",ar:"أي مما يلي مثال على مفصل غضروفي ثانوي؟",options:[{en:"A. Shoulder",ar:"أ. الكتف",correct:false},{en:"B. Elbow",ar:"ب. المرفق",correct:false},{en:"C. Intervertebral disc",ar:"ج. القرص الفقري",correct:true},{en:"D. Knee",ar:"د. الركبة",correct:false}],explain_ar:"القرص الفقري (ارتفاق) هو مفصل غضروفي ثانوي."},
+      {num:12,en:"Which is an example of synovial joint?",ar:"أي مما يلي مثال على مفصل زلالي؟",options:[{en:"A. Sutures",ar:"أ. الدرزات",correct:false},{en:"B. Intervertebral disc",ar:"ب. القرص الفقري",correct:false},{en:"C. Shoulder",ar:"ج. الكتف",correct:true},{en:"D. Symphysis pubis",ar:"د. ارتفاق العانة",correct:false}],explain_ar:"مفصل الكتف هو مفصل زلالي كروي حقي."},
+      {num:13,en:"Which bone is part of the axial skeleton?",ar:"أي عظم هو جزء من الهيكل المحوري؟",options:[{en:"A. Femur",ar:"أ. عظم الفخذ",correct:false},{en:"B. Humerus",ar:"ب. عظم العضد",correct:false},{en:"C. Skull",ar:"ج. الجمجمة",correct:true},{en:"D. Tibia",ar:"د. عظم الظنبوب",correct:false}],explain_ar:"الجمجمة جزء من الهيكل المحوري."},
+      {num:14,en:"Which bone is part of the appendicular skeleton?",ar:"أي عظم هو جزء من الهيكل الطرفي؟",options:[{en:"A. Ribs",ar:"أ. الأضلاع",correct:false},{en:"B. Vertebrae",ar:"ب. الفقرات",correct:false},{en:"C. Humerus",ar:"ج. عظم العضد",correct:true},{en:"D. Skull",ar:"د. الجمجمة",correct:false}],explain_ar:"عظم العضد جزء من الهيكل الطرفي (الطرف العلوي)."},
+      {num:15,en:"Which bone is located in the forearm?",ar:"أي عظم يقع في الساعد؟",options:[{en:"A. Humerus",ar:"أ. عظم العضد",correct:false},{en:"B. Radius",ar:"ب. الكعبرة",correct:true},{en:"C. Tibia",ar:"ج. عظم الظنبوب",correct:false},{en:"D. Fibula",ar:"د. عظم الشظية",correct:false}],explain_ar:"الكعبرة والزند هما عظام الساعد."},
+      {num:16,en:"The number of carpal bones is:",ar:"عدد عظام الرسغ هو:",options:[{en:"A. 6",ar:"أ. 6",correct:false},{en:"B. 7",ar:"ب. 7",correct:false},{en:"C. 8",ar:"ج. 8",correct:true},{en:"D. 9",ar:"د. 9",correct:false}],explain_ar:"يوجد 8 عظام رسغ في كل يد."},
+      {num:17,en:"The number of metatarsal bones is:",ar:"عدد عظام مشط القدم هو:",options:[{en:"A. 4",ar:"أ. 4",correct:false},{en:"B. 5",ar:"ب. 5",correct:true},{en:"C. 6",ar:"ج. 6",correct:false},{en:"D. 7",ar:"د. 7",correct:false}],explain_ar:"يوجد 5 عظام مشط في كل قدم."},
+      {num:18,en:"The number of thoracic vertebrae is:",ar:"عدد الفقرات الصدرية هو:",options:[{en:"A. 10",ar:"أ. 10",correct:false},{en:"B. 11",ar:"ب. 11",correct:false},{en:"C. 12",ar:"ج. 12",correct:true},{en:"D. 13",ar:"د. 13",correct:false}],explain_ar:"يوجد 12 فقرة صدرية."},
+      {num:19,en:"The upper 7 ribs are called:",ar:"الأضلاع العلوية السبعة تُسمى:",options:[{en:"A. True ribs",ar:"أ. أضلاع حقيقية",correct:true},{en:"B. False ribs",ar:"ب. أضلاع كاذبة",correct:false},{en:"C. Floating ribs",ar:"ج. أضلاع طافية",correct:false}],explain_ar:"الأضلاع الحقيقية السبعة ترتبط مباشرة بالقص."},
+      {num:20,en:"The bone of the arm is:",ar:"عظم الذراع هو:",options:[{en:"A. Femur",ar:"أ. عظم الفخذ",correct:false},{en:"B. Radius",ar:"ب. الكعبرة",correct:false},{en:"C. Ulna",ar:"ج. الزند",correct:false},{en:"D. Humerus",ar:"د. عظم العضد",correct:true}],explain_ar:"عظم العضد (Humerus) هو عظم الذراع."},
+      {num:21,en:"The bone of the thigh is:",ar:"عظم الفخذ هو:",options:[{en:"A. Femur",ar:"أ. عظم الفخذ",correct:true},{en:"B. Radius",ar:"ب. الكعبرة",correct:false},{en:"C. Ulna",ar:"ج. الزند",correct:false},{en:"D. Humerus",ar:"د. عظم العضد",correct:false}],explain_ar:"عظم الفخذ (Femur) هو عظم الفخذ."},
+      {num:22,en:"The bones of the forearm are:",ar:"عظام الساعد هي:",options:[{en:"A. Radius and ulna",ar:"أ. الكعبرة والزند",correct:true},{en:"B. Tibia and fibula",ar:"ب. الظنبوب والشظية",correct:false},{en:"C. Carpal bones",ar:"ج. عظام الرسغ",correct:false}],explain_ar:"الكعبرة والزند هما عظام الساعد."},
+      {num:23,en:"The bones of the leg are:",ar:"عظام الساق هي:",options:[{en:"A. Radius and ulna",ar:"أ. الكعبرة والزند",correct:false},{en:"B. Tibia and fibula",ar:"ب. الظنبوب والشظية",correct:true},{en:"C. Carpal bones",ar:"ج. عظام الرسغ",correct:false}],explain_ar:"الظنبوب والشظية هما عظام الساق."},
+      {num:24,en:"Which is an example of skeletal muscles?",ar:"أي مما يلي مثال على العضلات الهيكلية؟",options:[{en:"A. Muscles of limbs",ar:"أ. عضلات الأطراف",correct:true},{en:"B. Muscles of the small intestine",ar:"ب. عضلات الأمعاء الدقيقة",correct:false},{en:"C. Muscles of the heart",ar:"ج. عضلات القلب",correct:false}],explain_ar:"عضلات الأطراف هي عضلات هيكلية."},
+      {num:25,en:"Which is an example of long bones?",ar:"أي مما يلي مثال على العظام الطويلة؟",options:[{en:"A. Carpal bones",ar:"أ. عظام الرسغ",correct:false},{en:"B. Vertebra",ar:"ب. الفقرة",correct:false},{en:"C. Humerus",ar:"ج. عظم العضد",correct:true},{en:"D. Hip bone",ar:"د. عظم الورك",correct:false}],explain_ar:"عظم العضد عظم طويل."},
+      {num:26,en:"Which is an example of flat bones?",ar:"أي مما يلي مثال على العظام المسطحة؟",options:[{en:"A. Scapula",ar:"أ. عظم الكتف",correct:true},{en:"B. Vertebra",ar:"ب. الفقرة",correct:false},{en:"C. Humerus",ar:"ج. عظم العضد",correct:false},{en:"D. Hip bone",ar:"د. عظم الورك",correct:false}],explain_ar:"اللوح (Scapula) عظم مسطح."},
+      {num:27,en:"Which is an example of sesamoid bones?",ar:"أي مما يلي مثال على العظام السمسمانية؟",options:[{en:"A. Humerus",ar:"أ. عظم العضد",correct:false},{en:"B. Patella",ar:"ب. الرضفة",correct:true},{en:"C. Ulna",ar:"ج. الزند",correct:false},{en:"D. Vertebra",ar:"د. الفقرة",correct:false}],explain_ar:"الرضفة (Patella) عظم سمسماني."},
+      {num:28,en:"Which is an example of irregular bones?",ar:"أي مما يلي مثال على العظام غير المنتظمة؟",options:[{en:"A. Humerus",ar:"أ. عظم العضد",correct:false},{en:"B. Vertebra",ar:"ب. الفقرة",correct:true},{en:"C. Ulna",ar:"ج. الزند",correct:false},{en:"D. Scapula",ar:"د. عظم الكتف",correct:false}],explain_ar:"الفقرات هي عظام غير منتظمة."},
+      {num:29,en:"Pneumatic bones are found in:",ar:"العظام الهوائية توجد في:",options:[{en:"A. Vertebrae",ar:"أ. الفقرات",correct:false},{en:"B. Skull",ar:"ب. الجمجمة",correct:true},{en:"C. Limbs",ar:"ج. الأطراف",correct:false},{en:"D. Ribs",ar:"د. الأضلاع",correct:false}],explain_ar:"العظام الهوائية موجودة في الجمجمة (مثل الجيوب الأنفية)."},
+      {num:30,en:"The plane that divides the body into superior and inferior parts is called:",ar:"المستوى الذي يقسم الجسم إلى أجزاء علوية وسفلية يُسمى:",options:[{en:"A. Median sagittal plane",ar:"أ. المستوى السهمي الناصف",correct:false},{en:"B. Parasagittal plane",ar:"ب. المستوى المجاور للسهمي",correct:false},{en:"C. Transverse plane",ar:"ج. المستوى المستعرض",correct:true},{en:"D. Coronal plane",ar:"د. المستوى الإكليلي",correct:false}],explain_ar:"المستوى المستعرض يقسم الجسم إلى علوي وسفلي."},
+      {num:31,en:"Number of cervical vertebrae:",ar:"عدد الفقرات العنقية:",options:[{en:"A. 5",ar:"أ. 5",correct:false},{en:"B. 7",ar:"ب. 7",correct:true},{en:"C. 12",ar:"ج. 12",correct:false},{en:"D. 4",ar:"د. 4",correct:false}],explain_ar:"يوجد 7 فقرات عنقية."},
+      {num:32,en:"Number of thoracic vertebrae:",ar:"عدد الفقرات الصدرية:",options:[{en:"A. 5",ar:"أ. 5",correct:false},{en:"B. 7",ar:"ب. 7",correct:false},{en:"C. 12",ar:"ج. 12",correct:true},{en:"D. 4",ar:"د. 4",correct:false}],explain_ar:"يوجد 12 فقرة صدرية."},
+      {num:33,en:"Number of lumbar vertebrae:",ar:"عدد الفقرات القطنية:",options:[{en:"A. 5",ar:"أ. 5",correct:true},{en:"B. 7",ar:"ب. 7",correct:false},{en:"C. 12",ar:"ج. 12",correct:false},{en:"D. 4",ar:"د. 4",correct:false}],explain_ar:"يوجد 5 فقرات قطنية."},
+      {num:34,en:"Number of floating ribs:",ar:"عدد الأضلاع الطافية:",options:[{en:"A. 5",ar:"أ. 5",correct:false},{en:"B. 7",ar:"ب. 7",correct:false},{en:"C. 12",ar:"ج. 12",correct:false},{en:"D. 4",ar:"د. 4",correct:true}],explain_ar:"يوجد زوجان (4 أضلاع) طافية."},
+      {num:35,en:"Number of coccygeal pieces:",ar:"عدد قطع العصعص:",options:[{en:"A. 5",ar:"أ. 5",correct:false},{en:"B. 7",ar:"ب. 7",correct:false},{en:"C. 12",ar:"ج. 12",correct:false},{en:"D. 4",ar:"د. 4",correct:true}],explain_ar:"العصعص يتكون من 4 فقرات ملتحمة."},
+      // ===== أسئلة جديدة من المطابقة (match) في الـ Word =====
+      {num:36,en:"Which of the following is a long bone?",ar:"أي من التالي هو عظم طويل؟",options:[{en:"A. Femur",ar:"أ. عظم الفخذ",correct:true},{en:"B. Patella",ar:"ب. الرضفة",correct:false},{en:"C. Scapula",ar:"ج. عظم الكتف",correct:false},{en:"D. Vertebra",ar:"د. الفقرة",correct:false}],explain_ar:"الفخذ (Femur) عظم طويل."},
+      {num:37,en:"Which of the following is a short bone?",ar:"أي من التالي هو عظم قصير؟",options:[{en:"A. Carpal bones",ar:"أ. عظام الرسغ",correct:true},{en:"B. Femur",ar:"ب. عظم الفخذ",correct:false},{en:"C. Scapula",ar:"ج. عظم الكتف",correct:false},{en:"D. Humerus",ar:"د. عظم العضد",correct:false}],explain_ar:"عظام الرسغ (Carpal bones) هي عظام قصيرة."},
+      {num:38,en:"Which of the following is a flat bone?",ar:"أي من التالي هو عظم مسطح؟",options:[{en:"A. Scapula",ar:"أ. عظم الكتف",correct:true},{en:"B. Femur",ar:"ب. عظم الفخذ",correct:false},{en:"C. Carpal bones",ar:"ج. عظام الرسغ",correct:false},{en:"D. Patella",ar:"د. الرضفة",correct:false}],explain_ar:"اللوح (Scapula) عظم مسطح."},
+      {num:39,en:"Which of the following is a pneumatic bone?",ar:"أي من التالي هو عظم هوائي؟",options:[{en:"A. Skull (air sinuses)",ar:"أ. الجمجمة (الجيوب الهوائية)",correct:true},{en:"B. Femur",ar:"ب. عظم الفخذ",correct:false},{en:"C. Scapula",ar:"ج. عظم الكتف",correct:false},{en:"D. Patella",ar:"د. الرضفة",correct:false}],explain_ar:"العظام الهوائية توجد في الجمجمة (مثل الجيوب الأنفية)."},
+      {num:40,en:"Which of the following is an irregular bone?",ar:"أي من التالي هو عظم غير منتظم؟",options:[{en:"A. Vertebra",ar:"أ. الفقرة",correct:true},{en:"B. Femur",ar:"ب. عظم الفخذ",correct:false},{en:"C. Scapula",ar:"ج. عظم الكتف",correct:false},{en:"D. Carpal bones",ar:"د. عظام الرسغ",correct:false}],explain_ar:"الفقرات هي عظام غير منتظمة."},
+      {num:41,en:"Which of the following is a sesamoid bone?",ar:"أي من التالي هو عظم سمسماني؟",options:[{en:"A. Patella",ar:"أ. الرضفة",correct:true},{en:"B. Femur",ar:"ب. عظم الفخذ",correct:false},{en:"C. Scapula",ar:"ج. عظم الكتف",correct:false},{en:"D. Carpal bones",ar:"د. عظام الرسغ",correct:false}],explain_ar:"الرضفة (Patella) عظم سمسماني."}
+    ]
+  },
+  // ==================== القسم 7: الجهاز الهضمي ====================
+  {
+    name:"الجهاز الهضمي",
+    nameEn:"Digestive System",
+    questions:[
+      {num:1,en:"The most dilated part of the gut is:",ar:"أكثر أجزاء القناة الهضمية اتساعًا هو:",options:[{en:"A. Esophagus",ar:"أ. المريء",correct:false},{en:"B. Stomach",ar:"ب. المعدة",correct:true},{en:"C. Small intestine",ar:"ج. الأمعاء الدقيقة",correct:false}],explain_ar:"المعدة هي أكثر الأجزاء اتساعًا."},
+      {num:2,en:"The stomach has:",ar:"المعدة لها:",options:[{en:"A. 1 border",ar:"أ. حافة واحدة",correct:false},{en:"B. 2 borders",ar:"ب. حافتان",correct:true},{en:"C. 3 borders",ar:"ج. ثلاث حواف",correct:false}],explain_ar:"للمعدة حافتان: الانحناء الأكبر والأصغر."},
+      {num:3,en:"The jejunum forms the proximal:",ar:"الصائم يشكل:",options:[{en:"A. Two fifths",ar:"أ. خمسين",correct:true},{en:"B. Three fifths",ar:"ب. ثلاثة أخماس",correct:false},{en:"C. Four fifths",ar:"ج. أربعة أخماس",correct:false}],explain_ar:"الصائم يشكل الخمسين القريبين من الأمعاء الدقيقة."},
+      {num:4,en:"The sigmoid colon lies in the:",ar:"القولون السيني يقع في:",options:[{en:"A. Thorax",ar:"أ. الصدر",correct:false},{en:"B. Abdomen",ar:"ب. البطن",correct:false},{en:"C. Pelvis",ar:"ج. الحوض",correct:true}],explain_ar:"القولون السيني يقع في الحوض."},
+      {num:5,en:"Caudate and quadrate lobes are parts of:",ar:"الفص الذنبي والفص المربعي هما أجزاء من:",options:[{en:"A. Liver",ar:"أ. الكبد",correct:true},{en:"B. Spleen",ar:"ب. الطحال",correct:false},{en:"C. Pancreas",ar:"ج. البنكرياس",correct:false}],explain_ar:"الفص الذنبي والمربعي يقعان في الكبد."},
+      {num:6,en:"The right and left hepatic ducts unite to form:",ar:"القناة الكبدية اليمنى واليسرى تتحدان لتكوين:",options:[{en:"A. Cystic duct",ar:"أ. القناة المرارية",correct:false},{en:"B. Common bile duct",ar:"ب. القناة الصفراوية المشتركة",correct:false},{en:"C. Common hepatic duct",ar:"ج. القناة الكبدية المشتركة",correct:true}],explain_ar:"تتحد القناتان الكبديتان لتكوين القناة الكبدية المشتركة."},
+      {num:7,en:"Which is an example for fibrous joints?",ar:"أي مما يلي مثال على المفاصل الليفية؟",options:[{en:"A. Shoulder joint",ar:"أ. مفصل الكتف",correct:false},{en:"B. Gomphosis",ar:"ب. الارتفاق السنخي",correct:true},{en:"C. Symphysis pubis",ar:"ج. ارتفاق العانة",correct:false},{en:"D. Hip joint",ar:"د. مفصل الورك",correct:false}],explain_ar:"الارتفاق السنخي (مفصل السن) هو مفصل ليفي."},
+      {num:8,en:"Which is a part of the small intestine?",ar:"أي مما يلي جزء من الأمعاء الدقيقة؟",options:[{en:"A. Duodenum",ar:"أ. الإثنا عشر",correct:true},{en:"B. Descending colon",ar:"ب. القولون النازل",correct:false},{en:"C. Appendix",ar:"ج. الزائدة الدودية",correct:false},{en:"D. Caecum",ar:"د. الأعور",correct:false}],explain_ar:"الإثنا عشر هو الجزء الأول من الأمعاء الدقيقة."},
+      {num:9,en:"Which is a part of the large intestine?",ar:"أي مما يلي جزء من الأمعاء الغليظة؟",options:[{en:"A. Duodenum",ar:"أ. الإثنا عشر",correct:false},{en:"B. Jejunum",ar:"ب. الصائم",correct:false},{en:"C. Caecum",ar:"ج. الأعور",correct:true},{en:"D. Ileum",ar:"د. اللفائفي",correct:false}],explain_ar:"الأعور هو بداية الأمعاء الغليظة."},
+      {num:10,en:"Which is one of the salivary glands?",ar:"أي مما يلي من الغدد اللعابية؟",options:[{en:"A. Caecum",ar:"أ. الأعور",correct:false},{en:"B. Appendix",ar:"ب. الزائدة الدودية",correct:false},{en:"C. Parotid",ar:"ج. النكفية",correct:true},{en:"D. Duodenum",ar:"د. الإثنا عشر",correct:false}],explain_ar:"الغدة النكفية هي إحدى الغدد اللعابية."},
+      {num:11,en:"Which is an example for synovial joints?",ar:"أي مما يلي مثال على المفاصل الزلالية؟",options:[{en:"A. Sutures of the skull",ar:"أ. درزات الجمجمة",correct:false},{en:"B. Knee joint",ar:"ب. مفصل الركبة",correct:true},{en:"C. Symphysis pubis",ar:"ج. ارتفاق العانة",correct:false}],explain_ar:"مفصل الركبة هو مفصل زلالي."},
+      {num:12,en:"The junction between transverse colon and descending colon is called:",ar:"الوصلة بين القولون المستعرض والقولون النازل تُسمى:",options:[{en:"A. Duodeno-jejunal junction",ar:"أ. وصلة اثنا عشرية صائمية",correct:false},{en:"B. Ileo-cecal junction",ar:"ب. وصلة لفائفية أعورية",correct:false},{en:"C. Left colic flexure",ar:"ج. الانعطافة القولونية اليسرى",correct:true},{en:"D. Hepatic flexure",ar:"د. الانعطافة الكبدية",correct:false}],explain_ar:"الانعطافة القولونية اليسرى هي الوصلة بين القولون المستعرض والنازل."},
+      {num:13,en:"The part of the pharynx that lies behind the mouth cavity is:",ar:"جزء البلعوم الذي يقع خلف تجويف الفم هو:",options:[{en:"A. Oropharynx",ar:"أ. البلعوم الفموي",correct:true},{en:"B. Nasopharynx",ar:"ب. البلعوم الأنفي",correct:false},{en:"C. Laryngopharynx",ar:"ج. البلعوم الحنجري",correct:false},{en:"D. Epiglottis",ar:"د. لسان المزمار",correct:false}],explain_ar:"البلعوم الفموي يقع خلف تجويف الفم."},
+      {num:14,en:"Permanent teeth consist of:",ar:"الأسنان الدائمة تتكون من:",options:[{en:"A. 20",ar:"أ. 20",correct:false},{en:"B. 28",ar:"ب. 28",correct:false},{en:"C. 30",ar:"ج. 30",correct:false},{en:"D. 32",ar:"د. 32",correct:true}],explain_ar:"عدد الأسنان الدائمة 32 سناً."},
+      {num:15,en:"Which opens in the 2nd part of the duodenum?",ar:"أي من التالي يفتح في الجزء الثاني من الإثنا عشر؟",options:[{en:"A. Cystic duct",ar:"أ. القناة المرارية",correct:false},{en:"B. Common hepatic duct",ar:"ب. القناة الكبدية المشتركة",correct:false},{en:"C. Hepatopancreatic ampulla",ar:"ج. أمبولة الكبد والبنكرياس",correct:true},{en:"D. None of the above",ar:"د. لا شيء مما سبق",correct:false}],explain_ar:"أمبولة فاتر (الكبد والبنكرياس) تفتح في الجزء الثاني من الإثنا عشر."}
+    ]
+  },
+  // ==================== القسم 8: الغدد الصماء (جديد) ====================
+  {
+    name:"الغدد الصماء",
+    nameEn:"Endocrine Glands",
+    questions:[
+      {num:1,en:"Which of the following is an endocrine gland?",ar:"أي من التالي هو غدة صماء؟",options:[{en:"A. Sweat gland",ar:"أ. الغدة العرقية",correct:false},{en:"B. Sebaceous gland",ar:"ب. الغدة الدهنية",correct:false},{en:"C. Lacrimal gland",ar:"ج. الغدة الدمعية",correct:false},{en:"D. Thyroid gland",ar:"د. الغدة الدرقية",correct:true}],explain_ar:"الغدة الدرقية هي غدة صماء تفرز هرموناتها مباشرة في الدم."}
+    ]
+  }
+];
+
+// ======================================================================
+// دوال التطبيق (نفسها مع تغيير بسيط)
+// ======================================================================
+function buildSeparateSections(originalBank) {
+  const newBank = [];
+  originalBank.forEach(sec => {
+    const mcq = [];
+    const tf = [];
+    sec.questions.forEach(q => {
+      if (q.isTF !== undefined && q.isTF !== null) tf.push(q);
+      else mcq.push(q);
+    });
+    const renumber = (arr) => arr.map((q, idx) => ({ ...q, num: idx + 1 }));
+    const mcqRenumbered = renumber(mcq);
+    const tfRenumbered = renumber(tf);
+    if (mcqRenumbered.length > 0) {
+      newBank.push({
+        name: sec.name + ' (اختياري)',
+        nameEn: sec.nameEn + ' (MCQ)',
+        originalName: sec.name,
+        questions: mcqRenumbered
+      });
+    }
+    if (tfRenumbered.length > 0) {
+      newBank.push({
+        name: sec.name + ' (صواب/خطأ)',
+        nameEn: sec.nameEn + ' (True/False)',
+        originalName: sec.name,
+        questions: tfRenumbered
+      });
+    }
+  });
+  return newBank;
+}
+
+const QUESTION_BANK = buildSeparateSections(ORIGINAL_BANK);
+const LS_KEY='anatomy_progress_v3';
+let state={mode:'practice',order:'device',showTranslation:true,timerSeconds:0,quizQuestions:[],currentIndex:0,correctCount:0,wrongCount:0,answered:false,selectedOptionIdx:null,sessionMistakes:[],timerInterval:null,timeLeft:0,questionStates:[]};
+let maleEnglishVoice=null,currentExplainLang='ar',currentExplainName='';
+
+function setTheme(t){document.body.classList.toggle('light',t==='light');document.querySelectorAll('.theme-toggle button').forEach(b=>{b.classList.toggle('active',b.dataset.theme===t)});localStorage.setItem('anatomy_theme',t)}
+function loadProgress(){try{const r=localStorage.getItem(LS_KEY);if(!r)return{attempted:{},mistakes:{}};return JSON.parse(r)}catch(e){return{attempted:{},mistakes:{}}}}
+function saveProgress(p){localStorage.setItem(LS_KEY,JSON.stringify(p))}
+function qid(s,n){return s+'___'+n}
+
+function showExplanation(name){currentExplainName=name;const box=document.getElementById('section-explanation'),title=document.getElementById('explain-title'),textDiv=document.getElementById('explain-text');const data={};
+data["الجهاز العصبي المركزي"]={text_ar:"الجهاز العصبي المركزي: المخ والنخاع الشوكي. يتكون المخ من نصفي كرة مخية متصلين بالجسم الثفني، وكل نصف له 4 فصوص. جذع الدماغ (الدماغ المتوسط، الجسر، النخاع المستطيل). البطينات: جانبية، ثالث، رابع، قناة مركزية. النخاع الشوكي ينتهي عند L1. السائل النخاعي في الحيز تحت العنكبوتية، وتنتهي الأم العنكبوتية والأم الجافية عند S2.",text_en:"Central Nervous System: Brain and spinal cord. Cerebrum has two hemispheres connected by corpus callosum, each has 4 lobes. Brainstem: midbrain, pons, medulla. Ventricles: lateral, third, fourth, central canal. Spinal cord ends at L1. CSF in subarachnoid space, arachnoid and dura end at S2."};
+data["الأعصاب القحفية"]={text_ar:"الأعصاب القحفية: 12 زوجاً. أهمها: الشمي (I)، البصري (II)، المحرك للعين (III)، البكري (IV)، مثلث التوائم (V)، المبعد (VI)، الوجهي (VII)، الدهليزي القوقعي (VIII)، البلعومي اللساني (IX)، المبهم (X)، الإضافي (XI)، تحت اللسان (XII).",text_en:"Cranial nerves: 12 pairs. Key: Olfactory (I), Optic (II), Oculomotor (III), Trochlear (IV), Trigeminal (V), Abducens (VI), Facial (VII), Vestibulocochlear (VIII), Glossopharyngeal (IX), Vagus (X), Accessory (XI), Hypoglossal (XII)."};
+data["القلب"]={text_ar:"القلب: قمة (بطين أيسر)، قاعدة (أذينان). السطح الحجابي (بطينان)، السطح القصي الضلعي (أذينان بالأعلى وبطينان بالأسفل). الصمامات: مترالي (يسار)، ثلاثي الشرف (يمين). الأوردة الرئوية تحمل دمًا مؤكسجًا، الشرايين الرئوية تحمل دمًا غير مؤكسج. التزويد من الشرايين التاجية.",text_en:"Heart: apex (left ventricle), base (atria). Diaphragmatic surface (ventricles), sternocostal surface (atria above, ventricles below). Valves: mitral (left), tricuspid (right). Pulmonary veins carry oxygenated blood, pulmonary arteries carry deoxygenated. Supplied by coronary arteries."};
+data["الجهاز التنفسي"]={text_ar:"الجهاز التنفسي: الحنجرة (غضاريف مفردة: حلقي، درقي، لسان المزمار؛ مزدوجة: طرجهالية، قرينية، وتدية). القصبات: اليسرى أطول من اليمنى. الرئة اليمنى (3 فصوص)، اليسرى (2). الجيوب الأنفية: فكي، جبهي، وتدي، غربالي (وليس تاجي أو وريدي). الحاجز الأنفي: ميكعة وغضروف حاجزي.",text_en:"Respiratory: Larynx (single: cricoid, thyroid, epiglottis; paired: arytenoid, corniculate, cuneiform). Left bronchus longer. Right lung (3 lobes), left (2). Paranasal sinuses: maxillary, frontal, sphenoid, ethmoid (not coronary or venous). Nasal septum: vomer, septal cartilage."};
+data["الجهاز البولي التناسلي"]={text_ar:"الجهاز البولي التناسلي: الإحليل الذكري (20 سم، أجزاء: بروستاتي، غشائي، قضيبي)، الإحليل الأنثوي (4 سم). البروستاتا تحيط بالجزء البروستاتي. الحالب (25 سم)، نقير الكلية عند L1، الكلية اليمنى أقل من اليسرى. الخصية غدة مختلطة، القناة القاذفة تفتح في الإحليل البروستاتي. وضع الرحم: انثناء أمامي وميل أمامي، الإخصاب في قناة فالوب، والانغراس في الرحم.",text_en:"Urogenital: Male urethra (20 cm, parts: prostatic, membranous, penile), female urethra (4 cm). Prostate surrounds prostatic part. Ureter (25 cm), kidney hilum at L1, right kidney lower. Testis mixed gland, ejaculatory duct opens into prostatic urethra. Uterus position: anteflexion anteversion, fertilization in uterine tube, implantation in uterus."};
+data["العظام والمفاصل"]={text_ar:"العظام والمفاصل: مصطلحات (أمامي، خلفي، إنسي، وحشي، علوي، سفلي، قريب، بعيد). الحركات: ثني، بسط، تقريب، تبعيد. المفاصل: ليفية (درزات، ارتفاق سنخي)، غضروفية (أقراص بين فقرية)، زلالية (كتف، ركبة). العظام: محورية (جمجمة، عمود فقري)، طرفية (أطراف). عدد الفقرات: عنقية (7)، صدرية (12)، قطنية (5). أنواع العظام: طويل (فخذ)، قصير (رسغ)، مسطح (لوح الكتف)، هوائي (جمجمة)، غير منتظم (فقرة)، سمسماني (رضفة).",text_en:"Bones and joints: Terms (anterior, posterior, medial, lateral, superior, inferior, proximal, distal). Movements: flexion, extension, adduction, abduction. Joints: fibrous (sutures, gomphosis), cartilaginous (intervertebral discs), synovial (shoulder, knee). Bones: axial (skull, vertebrae), appendicular (limbs). Vertebrae: cervical (7), thoracic (12), lumbar (5). Bone types: long (femur), short (carpals), flat (scapula), pneumatic (skull), irregular (vertebra), sesamoid (patella)."};
+data["الجهاز الهضمي"]={text_ar:"الجهاز الهضمي: المعدة (أكثر اتساعاً، حافتان). الصائم (خمسين الأمعاء الدقيقة). القولون السيني (في الحوض). الكبد (فص ذنبي ومربعي). القناة الكبدية المشتركة. الأسنان الدائمة (32). أمبولة فاتر تفتح في الإثنا عشر. البلعوم الفموي خلف الفم.",text_en:"Digestive: Stomach (most dilated, 2 borders). Jejunum (two-fifths of small intestine). Sigmoid colon (in pelvis). Liver (caudate and quadrate lobes). Common hepatic duct. Permanent teeth (32). Hepatopancreatic ampulla opens into duodenum. Oropharynx behind mouth."};
+data["الغدد الصماء"]={text_ar:"الغدد الصماء: غدد تفرز هرموناتها مباشرة في الدم. مثال: الغدة الدرقية، الغدة النخامية، الغدة الكظرية. الخصية والمبيض غدد مختلطة.",text_en:"Endocrine glands: glands that secrete hormones directly into blood. Examples: thyroid, pituitary, adrenal. Testis and ovary are mixed glands."};
+const d=data[name];title.textContent=name;if(!d){textDiv.textContent=currentExplainLang==='ar'?'لا يوجد شرح':'No explanation.';box.classList.add('show');updateExplainTextClass();return;}const txt=currentExplainLang==='ar'?d.text_ar:d.text_en;textDiv.innerHTML=txt.replace(/\n/g,'<br>');updateExplainTextClass();box.classList.add('show');}
+function updateExplainTextClass(){const t=document.getElementById('explain-text');t.classList.remove('ar','en');t.classList.add(currentExplainLang);}
+function closeExplanation(){document.getElementById('section-explanation').classList.remove('show');}
+function setExplainLang(l){currentExplainLang=l;document.querySelectorAll('.explain-controls .lang-btn').forEach(b=>{b.classList.toggle('active',b.dataset.lang===l)});if(currentExplainName)showExplanation(currentExplainName);}
+function updateHomeStats(){const p=loadProgress(),keys=Object.keys(p.attempted||{});let c=0,w=0;keys.forEach(k=>{if(p.attempted[k]==='correct')c++;else w++});const total=keys.length,pct=total?Math.round((c/total)*100):0;document.getElementById('statAttempted').textContent=total;document.getElementById('statCorrect').textContent=c;document.getElementById('statWrong').textContent=w;document.getElementById('progressPercent').innerHTML=pct+'<small>%</small>';const circle=document.getElementById('progressCircle'),circ=176;circle.style.strokeDashoffset=circ-(pct/100)*circ;updateWeakSectionSuggestion(p);}
+function updateWeakSectionSuggestion(p){const att=p.attempted||{};let bestIdx=-1,bestRate=0,bestName='';QUESTION_BANK.forEach((sec,idx)=>{let a=0,w=0;sec.questions.forEach(q=>{const k=qid(sec.name,q.num);if(att[k]!==undefined){a++;if(att[k]==='wrong')w++}});if(a>=2){const rate=w/a;if(rate>bestRate){bestRate=rate;bestIdx=idx;bestName=sec.name}}});const link=document.getElementById('weakLink');if(bestIdx>=0&&bestRate>0){link.style.display='flex';document.getElementById('weakSectionName').textContent=bestName;document.getElementById('weakSectionRate').textContent=Math.round(bestRate*100)+'%';link.dataset.sectionIdx=bestIdx;}else link.style.display='none';}
+function buildSectionList(){const wrap=document.getElementById('section-list');wrap.innerHTML='';QUESTION_BANK.forEach((sec,idx)=>{const div=document.createElement('div');div.className='section-item active';div.dataset.idx=idx;const nameSpan=document.createElement('span');nameSpan.textContent=sec.nameEn;const infoBtn=document.createElement('button');infoBtn.className='info-btn';infoBtn.innerHTML='<i class="fas fa-info-circle"></i>';infoBtn.title="شرح القسم";infoBtn.onclick=(e)=>{e.stopPropagation();showExplanation(sec.originalName)};const cntSpan=document.createElement('span');cntSpan.className='cnt';cntSpan.textContent=sec.questions.length;div.appendChild(nameSpan);div.appendChild(infoBtn);div.appendChild(cntSpan);div.onclick=()=>{div.classList.toggle('active');updateToggleAllButton();};wrap.appendChild(div)});updateToggleAllButton();}
+function toggleAllSections(){const items=document.querySelectorAll('#section-list .section-item');const allActive=Array.from(items).every(el=>el.classList.contains('active'));items.forEach(el=>el.classList.toggle('active',!allActive));updateToggleAllButton();}
+function updateToggleAllButton(){const items=document.querySelectorAll('#section-list .section-item');const activeCount=document.querySelectorAll('#section-list .section-item.active').length;const btn=document.getElementById('selectAllBtn');if(activeCount===items.length&&items.length>0){btn.textContent='إلغاء الكل';}else{btn.textContent='تحديد الكل';}}
+function toggleOptions(t){document.querySelectorAll('.sub-options').forEach(e=>e.classList.remove('show'));const target=document.getElementById(t);if(target)target.classList.add('show');document.querySelectorAll('.action-icon').forEach(e=>e.classList.remove('active'));const activeIcon=document.querySelector(`.action-icon[data-target="${t}"]`);if(activeIcon)activeIcon.classList.add('active');}
+function closeAllOptions(){document.querySelectorAll('.sub-options').forEach(e=>e.classList.remove('show'));document.querySelectorAll('.action-icon').forEach(e=>e.classList.remove('active'));const def=document.querySelector('.action-icon[data-target="modeOptions"]');if(def)def.classList.add('active');}
+function selectMode(m){state.mode=m;document.querySelectorAll('#modeOptions .action-btn').forEach(e=>{e.classList.toggle('active',e.dataset.mode===m)});closeAllOptions();}
+function selectOrder(o){state.order=o;document.querySelectorAll('#orderOptions .action-btn').forEach(e=>{e.classList.toggle('active',e.dataset.order===o)});closeAllOptions();}
+function selectTranslate(t){state.showTranslation=(t==='yes');document.querySelectorAll('#langOptions .action-btn').forEach(e=>{e.classList.toggle('active',e.dataset.translate===t)});closeAllOptions();}
+function selectTimer(s){state.timerSeconds=s;document.querySelectorAll('#timerOptions .action-btn').forEach(e=>{e.classList.toggle('active',parseInt(e.dataset.timer)===s)});closeAllOptions();}
+function enterApp(){document.getElementById('main-screen').style.display='block';buildSectionList();updateHomeStats();const savedTheme=localStorage.getItem('anatomy_theme')||'dark';setTheme(savedTheme);if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=()=>{window.speechSynthesis.getVoices();maleEnglishVoice=null;}}}
+function goHome(){stopTimer();document.getElementById('screen-quiz').classList.remove('active');document.getElementById('screen-results').classList.remove('active');document.getElementById('main-screen').style.display='block';updateHomeStats();}
+function quitQuiz(){if(confirm('متأكد تخرج؟')){stopTimer();goHome();}}
+function resetProgress(){if(confirm('متأكد تصفير التقدم؟')){localStorage.removeItem(LS_KEY);updateHomeStats();}}
+function shuffleArray(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a;}
+function startQuiz(){const activeEls=document.querySelectorAll('#section-list .section-item.active');if(activeEls.length===0){alert('اختار جزء واحد على الأقل!');return;}const idxs=Array.from(activeEls).map(el=>parseInt(el.dataset.idx));let qs=[];idxs.forEach(idx=>{const sec=QUESTION_BANK[idx];sec.questions.forEach(q=>{qs.push(Object.assign({},q,{sectionName:sec.name}));});});if(qs.length===0){alert('هذا القسم لا يحتوي على أسئلة!');return;}if(state.order==='random')qs=shuffleArray(qs);state.quizQuestions=qs;state.currentIndex=0;state.correctCount=0;state.wrongCount=0;state.sessionMistakes=[];state.questionStates=qs.map(()=>({selectedOption:null,answered:false,isCorrect:false,chosenIdxs:[]}));document.getElementById('main-screen').style.display='none';document.getElementById('screen-quiz').classList.add('active');document.getElementById('screen-results').classList.remove('active');renderQuestion();}
+function reviewMistakes(){const p=loadProgress();const mistakeKeys=Object.keys(p.mistakes||{});if(mistakeKeys.length===0){alert('مفيش أخطاء للمراجعة 🎉');return;}let qs=[];QUESTION_BANK.forEach(sec=>{sec.questions.forEach(q=>{const k=qid(sec.name,q.num);if(mistakeKeys.includes(k))qs.push(Object.assign({},q,{sectionName:sec.name}));});});state.quizQuestions=qs;state.currentIndex=0;state.correctCount=0;state.wrongCount=0;state.sessionMistakes=[];state.mode='practice';state.questionStates=qs.map(()=>({selectedOption:null,answered:false,isCorrect:false,chosenIdxs:[]}));document.getElementById('main-screen').style.display='none';document.getElementById('screen-quiz').classList.add('active');document.getElementById('screen-results').classList.remove('active');renderQuestion();}
+function startWeakSectionQuiz(){const link=document.getElementById('weakLink');const idx=link.dataset.sectionIdx;if(idx===undefined)return;document.querySelectorAll('#section-list .section-item').forEach(el=>{el.classList.toggle('active',el.dataset.idx==idx)});startQuiz();}
+function renderQuestion(){
+  const idx=state.currentIndex, q=state.quizQuestions[idx], st=state.questionStates[idx];
+  state.answered=st.answered; state.selectedOptionIdx=st.selectedOption;
+  const total=state.quizQuestions.length;
+  document.getElementById('quiz-position').innerHTML=`<i class="fas fa-question-circle"></i> ${idx+1} / ${total}`;
+  document.getElementById('quiz-score').innerHTML=`<i class="fas fa-check-circle" style="color:var(--success);"></i> ${state.correctCount} <i class="fas fa-times-circle" style="color:var(--danger);margin-right:4px;"></i> ${state.wrongCount}`;
+  document.getElementById('progress-bar').style.width=((idx)/total*100)+'%';
+  let tagText=`<i class="fas fa-tag"></i> ${q.sectionName}`;if(q.isTF)tagText+=` <span class="tf-badge">صواب / خطأ</span>`;document.getElementById('q-section-tag').innerHTML=tagText;
+  const qEn=document.getElementById('q-en');wrapEnglishText(`${q.num}. ${q.en}`,qEn);
+  const qAr=document.getElementById('q-ar');qAr.textContent=q.ar||'';qAr.style.display=state.showTranslation&&q.ar?'block':'none';
+  const opts=document.getElementById('options');opts.innerHTML='';
+  if(q.isTF){
+    [{en:"True",ar:"صواب"},{en:"False",ar:"خطأ"}].forEach((opt,i)=>{
+      const div=document.createElement('div');div.className='option';div.dataset.idx=i;
+      const isCorrect=(i===0)?q.correct===true:q.correct===false;
+      div.dataset.correct=isCorrect?'true':'false';
+      const enDiv=document.createElement('div');enDiv.className='opt-en';wrapEnglishText(opt.en,enDiv);
+      const arDiv=document.createElement('div');arDiv.className='opt-ar';arDiv.textContent=opt.ar||'';arDiv.style.display=state.showTranslation&&opt.ar?'block':'none';
+      const mark=document.createElement('span');mark.className='mark';
+      div.appendChild(enDiv);div.appendChild(arDiv);div.appendChild(mark);
+      div.onclick=()=>onOptionClick(i);
+      opts.appendChild(div);
+    });
+  } else {
+    q.options.forEach((opt,i)=>{
+      const div=document.createElement('div');div.className='option';div.dataset.idx=i;div.dataset.correct=opt.correct?'true':'false';
+      const enDiv=document.createElement('div');enDiv.className='opt-en';wrapEnglishText(opt.en,enDiv);
+      const arDiv=document.createElement('div');arDiv.className='opt-ar';arDiv.textContent=opt.ar||'';arDiv.style.display=state.showTranslation&&opt.ar?'block':'none';
+      const mark=document.createElement('span');mark.className='mark';
+      div.appendChild(enDiv);div.appendChild(arDiv);div.appendChild(mark);
+      div.onclick=()=>onOptionClick(i);
+      opts.appendChild(div);
+    });
+  }
+  if(st.answered){
+    const chosenIdxs=st.chosenIdxs;
+    document.querySelectorAll('.option').forEach(el=>{
+      const idxOpt=parseInt(el.dataset.idx);
+      el.classList.add('disabled');
+      const isCorrectOption=el.dataset.correct==='true';
+      if(isCorrectOption){el.classList.add('correct');el.querySelector('.mark').textContent='✅';}
+      else if(chosenIdxs.includes(idxOpt)){el.classList.add('wrong');el.querySelector('.mark').textContent='❌';}
+      if(st.selectedOption===idxOpt)el.classList.add('selected');
+    });
+    const fb=document.getElementById('feedback');
+    fb.classList.remove('hidden');
+    fb.className='feedback-box '+(st.isCorrect?'correct':'wrong');
+    let correctLabels='';
+    if(q.isTF){correctLabels=q.correct?'True (صواب)':'False (خطأ)';}else{correctLabels=q.options.map((o,i)=>o.correct?o.en:null).filter(Boolean).join('، ');}
+    fb.innerHTML=`<div class="fb-title">${st.isCorrect?'✅ صحيحة!':'❌ غلط'}</div>${!st.isCorrect?`<div><b>الصح:</b> ${correctLabels}</div>`:''}<div class="fb-explain">💡 ${q.explain_ar||''}</div>`;
+  } else {
+    document.getElementById('feedback').classList.add('hidden');
+    document.getElementById('feedback').innerHTML='';
+  }
+  const nextBtn=document.getElementById('btn-next');const prevBtn=document.getElementById('btn-prev');
+  prevBtn.disabled=(idx===0);
+  const isLast=idx===total-1;
+  const finishLabel=isLast?'إنهاء ✅':'التالي ⬅️';
+  if (state.mode === 'test') {
+    nextBtn.disabled = (state.selectedOptionIdx === null);
+    nextBtn.innerHTML = `<i class="fas fa-arrow-left"></i> ${finishLabel}`;
+    nextBtn.onclick = () => {
+      if (state.selectedOptionIdx === null) return;
+      if (!state.answered) {
+        const q = state.quizQuestions[state.currentIndex];
+        let isCorrect = false;
+        if (q.isTF) {
+          const opt = document.querySelector(`.option[data-idx="${state.selectedOptionIdx}"]`);
+          isCorrect = opt ? opt.dataset.correct === 'true' : false;
+        } else {
+          isCorrect = q.options[state.selectedOptionIdx].correct;
+        }
+        finalizeAnswer(isCorrect, [state.selectedOptionIdx]);
+        if (state.currentIndex < state.quizQuestions.length - 1) {
+          state.currentIndex++;
+          renderQuestion();
+        } else {
+          showResults();
+        }
+      } else {
+        if (state.currentIndex < state.quizQuestions.length - 1) {
+          state.currentIndex++;
+          renderQuestion();
+        } else {
+          showResults();
+        }
+      }
+    };
+  } else {
+    nextBtn.disabled = false;
+    nextBtn.innerHTML = isLast ? `<i class="fas fa-flag-checkered"></i> إنهاء` : `<i class="fas fa-arrow-left"></i> التالي`;
+    nextBtn.onclick = () => {
+      if (!state.answered) {
+        alert('يجب اختيار إجابة أولاً!');
+        return;
+      }
+      if (state.currentIndex < state.quizQuestions.length - 1) {
+        state.currentIndex++;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    };
+  }
+  if(!st.answered) startTimer(); else stopTimer();
+}
+function onOptionClick(i){
+  if(state.answered)return;
+  state.selectedOptionIdx=i;
+  document.querySelectorAll('.option').forEach(el=>el.classList.remove('selected'));
+  document.querySelector(`.option[data-idx="${i}"]`).classList.add('selected');
+  if(state.mode==='test'){
+    document.getElementById('btn-next').disabled = false;
+  } else {
+    submitSingleAnswer(i);
+  }
+}
+function submitSingleAnswer(i){
+  const q=state.quizQuestions[state.currentIndex];
+  let isCorrect=false;
+  if(q.isTF){const opt=document.querySelector(`.option[data-idx="${i}"]`);isCorrect=opt.dataset.correct==='true';}
+  else{isCorrect=!!q.options[i].correct;}
+  finalizeAnswer(isCorrect,[i]);
+}
+function finalizeAnswer(isCorrect,chosenIdxs){
+  stopTimer();
+  state.answered=true;
+  const idx=state.currentIndex, st=state.questionStates[idx];
+  st.selectedOption=state.selectedOptionIdx;
+  st.answered=true;
+  st.isCorrect=isCorrect;
+  st.chosenIdxs=chosenIdxs;
+  const q=state.quizQuestions[idx];
+  if(isCorrect)state.correctCount++;
+  else state.wrongCount++;
+  const p=loadProgress();const key=qid(q.sectionName,q.num);
+  p.attempted=p.attempted||{};p.mistakes=p.mistakes||{};
+  p.attempted[key]=isCorrect?'correct':'wrong';
+  if(isCorrect){delete p.mistakes[key];}else{p.mistakes[key]=true;}
+  saveProgress(p);
+  if(!isCorrect){state.sessionMistakes.push({q,chosenIdxs});}
+  renderQuestion();
+}
+function previousQuestion(){
+  if(state.currentIndex>0){
+    state.currentIndex--;
+    renderQuestion();
+  }
+}
+function showResults(){
+  stopTimer();
+  document.getElementById('screen-quiz').classList.remove('active');
+  document.getElementById('screen-results').classList.add('active');
+  document.getElementById('mistakes-list-wrap').classList.add('hidden');
+  const total=state.quizQuestions.length,pct=total?Math.round((state.correctCount/total)*100):0;
+  document.getElementById('result-pct').textContent=pct+'%';
+  document.getElementById('score-circle').style.setProperty('--pct',pct);
+  document.getElementById('res-total').textContent=total;
+  document.getElementById('res-correct').textContent=state.correctCount;
+  document.getElementById('res-wrong').textContent=state.wrongCount;
+  const btnMistakes=document.getElementById('btn-show-mistakes');
+  if(state.sessionMistakes.length>0)btnMistakes.classList.remove('hidden');else btnMistakes.classList.add('hidden');
+}
+function showMistakesList(){const wrap=document.getElementById('mistakes-list-wrap'),list=document.getElementById('mistakes-list');list.innerHTML='';state.sessionMistakes.forEach(m=>{const q=m.q;let yourAnswers='',correctAnswers='';if(q.isTF){yourAnswers=m.chosenIdxs.map(i=>document.querySelector(`.option[data-idx="${i}"] .opt-en`)?.textContent||'').join('، ');correctAnswers=q.correct?'True (صواب)':'False (خطأ)';}else{yourAnswers=m.chosenIdxs.map(i=>q.options[i].en).join('، ');correctAnswers=q.options.map((o,i)=>o.correct?o.en:null).filter(Boolean).join('، ');}const div=document.createElement('div');div.className='mistake-item';const toggleBtn=document.createElement('button');toggleBtn.className='mistake-toggle';toggleBtn.innerHTML='<i class="fas fa-eye"></i> عرض السؤال';const detailDiv=document.createElement('div');detailDiv.className='mistake-detail';detailDiv.style.display='none';const qHeader=document.createElement('div');qHeader.style.fontWeight='bold';qHeader.style.marginBottom='8px';qHeader.textContent=`${q.num}. ${q.en}`;detailDiv.appendChild(qHeader);const optsDiv=document.createElement('div');if(q.isTF){[{en:"True (صواب)",correct:q.correct===true},{en:"False (خطأ)",correct:q.correct===false}].forEach((opt,i)=>{const row=document.createElement('div');row.className='opt-row';const label=document.createElement('span');label.className='opt-label';label.textContent=opt.en;const status=document.createElement('span');status.className='opt-status';if(opt.correct){status.textContent='✅';status.style.color='var(--success)';}else if(m.chosenIdxs.includes(i)){status.textContent='❌';status.style.color='var(--danger)';}else{status.textContent='—';status.style.color='var(--muted)';}row.appendChild(label);row.appendChild(status);optsDiv.appendChild(row)});}else{q.options.forEach((opt,i)=>{const row=document.createElement('div');row.className='opt-row';const label=document.createElement('span');label.className='opt-label';label.textContent=opt.en;const status=document.createElement('span');status.className='opt-status';if(opt.correct){status.textContent='✅';status.style.color='var(--success)';}else if(m.chosenIdxs.includes(i)){status.textContent='❌';status.style.color='var(--danger)';}else{status.textContent='—';status.style.color='var(--muted)';}row.appendChild(label);row.appendChild(status);optsDiv.appendChild(row)});}detailDiv.appendChild(optsDiv);const explainDiv=document.createElement('div');explainDiv.style.marginTop='8px';explainDiv.style.fontStyle='italic';explainDiv.style.color='var(--muted)';explainDiv.textContent=`💡 ${q.explain_ar||''}`;detailDiv.appendChild(explainDiv);toggleBtn.onclick=()=>{const vis=detailDiv.style.display!=='none';detailDiv.style.display=vis?'none':'block';toggleBtn.innerHTML=vis?'<i class="fas fa-eye"></i> عرض السؤال':'<i class="fas fa-eye-slash"></i> إخفاء السؤال';};div.innerHTML=`<div class="m-q">${q.num}. ${q.en}</div><div class="m-you">إجابتك: ${yourAnswers}</div><div class="m-correct">الصح: ${correctAnswers}</div>`;div.appendChild(toggleBtn);div.appendChild(detailDiv);list.appendChild(div);});wrap.classList.remove('hidden');wrap.scrollIntoView({behavior:'smooth'});}
+function stopTimer(){if(state.timerInterval){clearInterval(state.timerInterval);state.timerInterval=null;}const b=document.getElementById('timer-badge');b.classList.add('hidden');b.classList.remove('warn','danger');}
+function startTimer(){stopTimer();if(!state.timerSeconds||state.timerSeconds<=0)return;const badge=document.getElementById('timer-badge');state.timeLeft=state.timerSeconds;badge.classList.remove('hidden','warn','danger');badge.innerHTML=`<i class="fas fa-hourglass-half"></i> ${state.timeLeft}`;state.timerInterval=setInterval(()=>{state.timeLeft--;if(state.timeLeft<=0){badge.innerHTML=`<i class="fas fa-hourglass-end"></i> 0`;stopTimer();onTimeUp();return;}badge.innerHTML=`<i class="fas fa-hourglass-half"></i> ${state.timeLeft}`;badge.classList.toggle('warn',state.timeLeft<=3&&state.timeLeft>1);badge.classList.toggle('danger',state.timeLeft<=1);},1000);}
+function onTimeUp(){if(state.answered)return;const q=state.quizQuestions[state.currentIndex];const chosen=state.selectedOptionIdx!==null?[state.selectedOptionIdx]:[];finalizeAnswer(false,chosen);}
+function getMaleEnglishVoice(){if(maleEnglishVoice)return maleEnglishVoice;const voices=window.speechSynthesis.getVoices();let v=voices.find(v=>v.lang==='en-US'&&v.name.toLowerCase().includes('male'));if(!v)v=voices.find(v=>v.lang==='en-GB'&&v.name.toLowerCase().includes('male'));if(!v)v=voices.find(v=>v.lang.startsWith('en')&&v.name.toLowerCase().includes('male'));if(!v)v=voices.find(v=>v.lang.startsWith('en'));maleEnglishVoice=v;return v;}
+function speakWord(word){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(word);u.lang='en-US';u.rate=.7;u.pitch=1;u.volume=1;const v=getMaleEnglishVoice();if(v)u.voice=v;window.speechSynthesis.speak(u);}
+function wrapEnglishText(text,container){if(!container)return;container.innerHTML='';if(!text)return;const words=text.split(' ');words.forEach((word,idx)=>{if(word.trim()===''){container.appendChild(document.createTextNode(' '));return;}const span=document.createElement('span');span.className='word-en';span.textContent=word;let pressTimer=null;const startPress=()=>{pressTimer=setTimeout(()=>{speakWord(word);span.classList.add('speaking');setTimeout(()=>span.classList.remove('speaking'),600);const hint=document.getElementById('speech-hint');hint.textContent=`🔊 ${word}`;hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),1000);},1000);};const endPress=()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}};span.addEventListener('pointerdown',startPress);span.addEventListener('pointerup',endPress);span.addEventListener('pointerleave',endPress);span.addEventListener('touchstart',startPress,{passive:true});span.addEventListener('touchend',endPress,{passive:true});span.addEventListener('touchcancel',endPress,{passive:true});container.appendChild(span);if(idx<words.length-1)container.appendChild(document.createTextNode(' '));});}
+document.addEventListener('click',function(e){const btn=e.target.closest('.big-btn');if(!btn)return;const rect=btn.getBoundingClientRect();const ripple=document.createElement('span');ripple.className='ripple';const size=Math.max(rect.width,rect.height);ripple.style.width=ripple.style.height=size+'px';ripple.style.left=(e.clientX-rect.left-size/2)+'px';ripple.style.top=(e.clientY-rect.top-size/2)+'px';btn.appendChild(ripple);setTimeout(()=>ripple.remove(),500);});
+
+document.addEventListener('DOMContentLoaded', () => {
+  enterApp();
+});
+</script>
+</body>
+</html>
